@@ -38,12 +38,14 @@ Given the queries that we need to answer and the current scenario, we can better
 - **HTML5, CSS3, JavaScript, jQuery for the interface.**  
   The HTML5, CSS3 and JavaScrpt are obvious open standards to choose from for building the interface. Given the simplicity of the interface - which is essentially a single page, with a  map - we can afford to use jQuery and re-use as many jQuery plugins as possible for different functionalities.
 
-- **Google Maps, layers, overlys & KML for the map interactivity.**  
+- **Google Maps, layers, overlays & KML for the map interactivity.**  
   It's still under research how easy it is to add layers and overlays to locations, and allow you to retrieve the "box" information which can then be passed to GeoCouch. This should be straightforward
 
- 
 
-## Work Plan
+## Work Plan Activities
 
-* TODO
+1. Buy a domain and setup a CouchDB + GeoCouch server in collaboration with the IT unit. **(5 days - Hannes, Luca and IT unit)**
+2. Setup the tool that will convert the MS Access database that Hannes maintains into JSON, and that will then import it into CouchDB. **(10 days - Luca, Simone)**
+3. Build the interface for the website, based on the queries identified earlier. **(10 days - Luca)**
+4. Develop the backend of the website. In particular the logic for making the queries. **(15 days - Luca, Simone)**
 

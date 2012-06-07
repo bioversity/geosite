@@ -44,8 +44,8 @@ Given the queries that we need to answer and the current scenario, we can better
 
 ## Work Plan Activities
 
-1. Buy a domain and setup a CouchDB + GeoCouch server in collaboration with the IT unit. **(5 days - Hannes, Luca and IT unit)**
-2. Setup the tool that will convert the MS Access database that Hannes maintains into JSON, and that will then import it into CouchDB. **(10 days - Luca, Simone)**
-3. Build the interface for the website, based on the queries identified earlier. **(10 days - Luca)**
-4. Develop the backend of the website. In particular the logic for making the queries. **(15 days - Luca, Simone)**
+1. Buy a domain and setup a CouchDB + GeoCouch server in collaboration with the IT unit. **(10 days - Hannes, Luca, IT unit)**
+2. Setup the tool that will convert the MS Access database that Hannes maintains, into JSON, and that will then import it into CouchDB. **(15 days - Hannes, Luca, Simone)**
+3. Build the interface for the website, based on the queries identified. **(15 days - Luca, Hannes)**
+4. Develop the backend of the website. In particular the logic for making the queries. **(20 days - Luca, Simone)**
 

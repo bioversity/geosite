@@ -12,7 +12,7 @@ The idea is to build a website for the collecting missions data, so that users c
   Users are going to be able to select certain pre-defined layers and filter the missions upon that. For example, they will be able to select the "countries layer" which will outline all the countries on the map. Then they will be able to select elements of that layer (for example Italy) and the website will filter the data based on their selection. We will apply other layers, such as evironment related layers, so that users can filter the data based on certain climatic conditions. We'll also allow users to insert their own layers.
    
 - **Allow customized queries.**  
-  Finally, users will have the freedom to filter based on any specific property of a mission. For example, they might need to get a mission with a specific ID, or within a specific date range.
+  Finally, users will have the freedom to filter based on any specific property of a mission. For example, they might need to get a mission with a specific ID, look for s specific crop, search all the samples collected by a specific collector, or within a specific date range.
 
 
 ## What techonology should we use?

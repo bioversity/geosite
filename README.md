@@ -12,7 +12,7 @@ The idea is to build a website for the collecting missions data, so that users c
   Users are going to be able to select certain pre-defined layers and filter the missions upon that. For example, they will be able to select the "countries layer" which will outline all the countries on the map. Then they will be able to select elements of that layer (for example Italy) and the website will filter the data based on their selection. We will apply other layers, such as evironment related layers, so that users can filter the data based on certain climatic conditions. We'll also allow users to insert their own layers.
    
 - **Allow customized queries.**  
-  Finally, users will have the freedom to filter based on any specific property of a mission. For example, they might need to get a mission with a specific ID, look for s specific crop, search all the samples collected by a specific collector, or within a specific date range.
+  Finally, users will have the freedom to filter based on any specific property of a mission. For example, they might need to get a mission with a specific ID, look for a specific crop, search all the samples collected by a specific collector, or within a specific date range.
 
 
 ## What techonology should we use?
@@ -44,8 +44,21 @@ Given the queries that we need to answer and the current scenario, we can better
 
 ## Work Plan Activities
 
-1. Buy a domain and setup a CouchDB + GeoCouch server in collaboration with the IT unit. **(10 days - Hannes, Luca, IT unit)**
-2. Setup the tool that will convert the MS Access database that Hannes maintains, into JSON, and that will then import it into CouchDB. **(15 days - Hannes, Luca, Simone)**
-3. Build the interface for the website, based on the queries identified. **(20 days - Luca, Hannes)**
-4. Develop the backend of the website. In particular the logic for making the queries. **(20 days - Luca, Simone)**. 
+1. **Buy a domain and setup a CouchDB + GeoCouch server in collaboration with the IT unit.**   
+   Hannes - ?  
+   Luca - 10 days  
+   IT unit - ?
+   
+2. **Setup the tool that will convert the MS Access database that Hannes maintains, into JSON, and that will then import it into CouchDB.**  
+   Hannes - ?  
+   Luca - 15 days  
+   Simone - 10 days
+   
+3. **Build the interface for the website, based on the queries identified.**  
+   Luca - 20 days  
+   Hannes - ?
+   
+4. **Develop the backend of the website. In particular the logic for making the queries.**  
+   Luca - 20 days   
+   Simone - 10 days 
 

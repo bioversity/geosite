@@ -61,4 +61,6 @@ Given the queries that we need to answer and the current scenario, we can better
 4. **Develop the backend of the website. In particular the logic for making the queries.**  
    Luca - 20 days   
    Simone - 10 days 
+   
+**Luca's time:** I have 50% of my time on this project. If we start working on this on July 1st I expect that we can have it done by **October 1st**.
 

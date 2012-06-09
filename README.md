@@ -40,27 +40,46 @@ Given the queries that we need to answer and the current scenario, we can better
 
 - **Google Maps, layers, overlays & KML for the map interactivity.**  
   It's still under research how easy it is to add layers and overlays to locations, and allow you to retrieve the "box" information which can then be passed to GeoCouch. This should be straightforward
+  
+## Schema
+
+![](schema.png)
 
 
 ## Work Plan Activities
 
-1. **Buy a domain and setup a CouchDB + GeoCouch server in collaboration with the IT unit.**   
+1. **Buy a domain and setup a CouchDB + GeoCouch server in collaboration with the IT unit.**     
+   We should ask IT to handle hosting. Luca will talk to Dario and get an estimate of the cost.  
+   
    Hannes - ?  
    Luca - 10 days  
    IT unit - ?
    
-2. **Setup the tool that will convert the MS Access database that Hannes maintains, into JSON, and that will then import it into CouchDB.**  
+2. **Setup the tool that will convert the MS Access database that Hannes maintains, into JSON, and that will then import it into CouchDB.**    
+   This is a command-line tool that will need to be installed on Hannes' computer, or any other computer that needs to upload the data to the website.
+   
    Hannes - ?  
    Luca - 15 days  
-   Simone - 10 days
+   Simone or Kenny? - 10 days
    
 3. **Build the interface for the website, based on the queries identified.**  
+   This also includes the map layer query interface. 
+   
    Luca - 20 days  
    Hannes - ?
    
 4. **Develop the backend of the website. In particular the logic for making the queries.**  
    Luca - 20 days   
-   Simone - 10 days 
+   Simone or Kenny? - 10 days 
    
-**Luca's time:** I have 50% of my time on this project. If we start working on this on July 1st I expect that we can have it done by **October 1st**.
+**Luca's time**  
+Luca has 50% of his time on this project. He'll start working on it on June  13th and expects to have a first prototype version online by **August 1st**. A more stable/complete version will be online by **September 1st** - please let him know if this date is ok.
+
+**Hannes' time**  
+(help in building the interface. in explaining the data-structure of the database. in building the tool that converts the database. in providing the shapefiles/kml files for the map layers. in testing the tool. etc..)
+
+**Simone or Kenny's time**  
+A possibility would be to hire Simone or Kenny (Luca knows more about Kenny's skills, which would be very good for the project). Kenny could be hired part-time. The other half he would still be working for the IT unit, so that he has knowledge about the server setup as well. For the activities, we need him for 20 days overall, but maybe we can setup a 3 month contract (part-time) or something? Whichever the budget allows us. This person will work closely with Luca, and they'll document everything on GitHub.
+
+
 

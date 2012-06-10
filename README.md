@@ -43,7 +43,7 @@ Given the queries that we need to answer and the current scenario, we can better
   
 ## Schema
 
-![](schema.png)
+![](./schema.png)
 
 
 ## Work Plan Activities

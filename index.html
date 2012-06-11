@@ -15,7 +15,7 @@
     
     <link rel="shortcut icon" href="favicon.png">
 
-    <link href="bootstrap.min.2.0.4.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />
 
 <style>
 .sidebar {
@@ -131,6 +131,8 @@ border-bottom-left-radius: 0px;
 <script>
 $(function() {
 
+$('.dropdown-toggle').dropdown()
+
 var visible = true;
 $('.slide').click(function() {
     
@@ -178,72 +180,53 @@ $('.slide').click(function() {
             This is what the text will be here forever and ever you break my heart and I will love you, forever and ever! Foo, bar.
         </p>
         <div id="content">
-            <form accept-charset="UTF-8" action="/" class="form-vertical" id="combo-form" method="post">
-                <div class="control-group">
-                    <label>Query</label>
+            <div class="control-group">
+                <label>Add or remove specific property filters</label>
+            </div>
+            <div class="control-group">
+                <div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        Year
+                        <span class="caret"></span>
+                    </a>
+                      <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">Separated link</a></li>
+                      </ul>
                 </div>
-                <div class="control-group">
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            ID
-                            <span class="caret"></span>
-                        </a>
-                          <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">Separated link</a></li>
-                          </ul>
-                    </div>
-                    <div class="btn-group">
-                      <button class="btn btn-info">=</button>
-                    </div>
-                    <div class="btn-group">
-                        <input type="text" placeholder="ID_MISSION"/>
-                    </div>
-
+                <div class="btn-group">
+                  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">&gt;</button>
+                      <ul class="dropdown-menu">
+                            <li><a href="#">=</a></li>
+                            <li><a href="#">&gt;</a></li>
+                            <li><a href="#">&lt;</a></li>
+                      </ul>
                 </div>
-                <div class="control-group">
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            Year
-                            <span class="caret"></span>
-                        </a>
-                          <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">Separated link</a></li>
-                          </ul>
-                    </div>
-                    <div class="btn-group">
-                      <button class="btn btn-info">&gt;</button>
-                    </div>
-                    <div class="btn-group">
-                        <input type="text" placeholder="1986"/>
-                    </div>
-                    <div class="btn-group add-row">
-                        <button class="btn btn-success" href="#">+</button>
-                    </div>
+                <div class="btn-group">
+                    <input type="text" placeholder="1986"/>
                 </div>
-                <div class="control-group">
-                    <label>Current API call</label>
-                    <div class="alert alert-error">
-                        http://fucker.com/api/some-very-long-text-being-typed-right-now
-                    </div>
+                <div class="btn-group add-row">
+                    <button class="btn btn-success" href="#"><i class="icon-plus icon-white"></i>
+                    </button>
+                    <button class="btn btn-danger" href="#"><i class="icon-minus icon-white"></i></button>
                 </div>
-                <div class="form-actions">
-                    <input class="btn btn-info submit-query" name="commit" type="submit" value="Submit">
+            </div>
+            <hr />
+            <div class="control-group">
+                <label>Current API call</label>
+                <div class="alert">
+                    http://fucker.com/api/some-very-long-text-being-typed-right-now
                 </div>
-            </form>
+            </div>
+            <div class="form-actions">
+                <input class="btn btn-primary submit-query" name="commit" type="submit" value="Submit">
+            </div>
 
     </div>
     <div id="logos">

@@ -40,37 +40,35 @@ Given the queries that we need to answer and the current scenario, we can better
 
 - **Google Maps, layers, overlays & KML for the map interactivity.**  
   It's still under research how easy it is to add layers and overlays to locations, and allow you to retrieve the "box" information which can then be passed to GeoCouch. This should be straightforward
-  
-## Schema
-
-![](./schema.png)
 
 
 ## Work Plan Activities
-
-1. **Buy a domain and setup a CouchDB + GeoCouch server in collaboration with the IT unit.**     
+   
+1. **Build the interface for the website, based on the queries identified.**  
+   This also includes the map layer query interface. 
+   
+   Luca - 20 days  
+   Hannes - ?
+   
+2. **Buy a domain and setup a CouchDB + GeoCouch server in collaboration with the IT unit.**     
    We should ask IT to handle hosting. Luca will talk to Dario and get an estimate of the cost.  
    
    Hannes - ?  
    Luca - 10 days  
    IT unit - ?
    
-2. **Setup the tool that will convert the MS Access database that Hannes maintains, into JSON, and that will then import it into CouchDB.**    
+3. **Setup the tool that will convert the MS Access database that Hannes maintains, into JSON, and that will then import it into CouchDB.**    
    This is a command-line tool that will need to be installed on Hannes' computer, or any other computer that needs to upload the data to the website.
    
    Hannes - ?  
    Luca - 15 days  
    Simone or Kenny? - 10 days
    
-3. **Build the interface for the website, based on the queries identified.**  
-   This also includes the map layer query interface. 
-   
-   Luca - 20 days  
-   Hannes - ?
-   
 4. **Develop the backend of the website. In particular the logic for making the queries.**  
    Luca - 20 days   
    Simone or Kenny? - 10 days 
+   
+### Timeline
    
 **Luca's time**  
 Luca has 50% of his time on this project. He'll start working on it on June  13th and expects to have a first prototype version online by **August 1st**. A more stable/complete version will be online by **September 1st** - please let him know if this date is ok.

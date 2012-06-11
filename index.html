@@ -9,35 +9,164 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no">
     
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700|Nunito:400,300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" href="favicon.png">
-    
+
+    <link href="bootstrap.min.2.0.4.css" media="screen" rel="stylesheet" type="text/css" />
+
 <style>
-html {
-    font-size: 100%;
+.sidebar {
+    width: 350px;
+    border-right: 1px solid #CCC;
 }
-body {
-    background: #E2E4E8;
-    font-family: 'Nunito',sans-serif;
-    color: #2E3237;
-    font-size: 18px;
-    text-shadow: 0 2px 0 white;
-    font-weight: 300;
-    line-height: 1.5;
-    -webkit-user-select: text;
-    position: relative;
-    z-index: 10;
-    margin-bottom: 10px;
+.sidebar .alert {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    text-align: center;
+    padding: 8px 15px;
 }
-::selection {
-    background: #CD3737;
-    color: white;
-    text-shadow: none;
+.sidebar .control-group {
+    margin-left: 20px;
+}
+.sidebar p#tagline {
+color: 
+white;
+background-color: 
+#5BB75B;
+background-image: -ms-linear-gradient(top, 
+#62C462, 
+#51A351);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(
+#62C462), to(
+#51A351));
+background-image: -webkit-linear-gradient(top, 
+#62C462, 
+#51A351);
+background-image: -o-linear-gradient(top, 
+#62C462, 
+#51A351);
+background-image: -moz-linear-gradient(top, 
+#62C462, 
+#51A351);
+background-image: linear-gradient(top, 
+#62C462, 
+#51A351);
+background-repeat: repeat-x;
+border-color: 
+#51A351 
+#51A351 
+#387038;
+border-color: 
+rgba(0, 0, 0, 0.1) 
+rgba(0, 0, 0, 0.1) 
+rgba(0, 0, 0, 0.25);
+filter: progid:dximagetransform.microsoft.gradient(startColorstr='#62c462', endColorstr='#51a351', GradientType=0);
+filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+
+padding: 10px 20px;
+text-align: center;
+text-shadow: 0 -1px 0 
+rgba(0, 0, 0, 0.25);
 }
 </style>
 </head>
 <body>
-<h2>Collecting Missions</h2>
-Hello World!
+    <div class="table-cell sidebar">
+        <h1>
+            <img alt="Adopt-a-Hydrant" src="/assets/logos/adopt-a-hydrant-a6ae37dfc9b439389f65d6a40d44c93a.png"
+            title="Adopt-a-Hydrant">
+        </h1>
+        <p class="alert-message" id="tagline">Claim responsibility for shoveling out a fire hydrant after it snows.</p>
+        <div id="content">
+            <form accept-charset="UTF-8" action="/" class="form-vertical" id="combo-form" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                    <input name="utf8" type="hidden" value="✓">
+                    <input name="authenticity_token" type="hidden" value="xUviSmjM7K8CKfIYL1cvJSY+pgXbdj4788/uz+cIBVA=">
+                </div>
+                <fieldset id="common_fields">
+                    <div class="control-group">
+                        <label for="user_email" id="user_email_label">Email address
+                        </label>
+                        <input id="user_email" name="user[email]" size="30" type="email">
+                    </div>
+                    <div class="control-group radio">
+                        <label for="user_new">
+                            <input checked="checked" id="user_new" name="user" type="radio" value="new">I haven't signed up yet</label>
+                        <label for="user_existing">
+                            <input id="user_existing" name="user" type="radio" value="existing">I've already signed up</label>
+                    </div>
+                </fieldset>
+                <fieldset id="user_sign_up_fields">
+                    <div class="control-group">
+                        <label for="user_name" id="user_name_label">Name
+                            <small>(visible to others)</small>
+                        </label>
+                        <input id="user_name" name="user[name]" size="30" type="text">
+                    </div>
+                    <div class="control-group">
+                        <label for="user_organization" id="user_organization_label">Organization
+                            <small>(visible to others)</small>
+                        </label>
+                        <input id="user_organization" name="user[organization]" size="30" type="text">
+                    </div>
+                    <div class="control-group">
+                        <label for="user_voice_number" id="user_voice_number_label">Home phone number
+                        </label>
+                        <input id="user_voice_number" name="user[voice_number]" placeholder="617-555-1212"
+                        size="30" type="tel">
+                    </div>
+                    <div class="control-group">
+                        <label for="user_sms_number" id="user_sms_number_label">Mobile phone number
+                        </label>
+                        <input id="user_sms_number" name="user[sms_number]" placeholder="857-555-1212"
+                        size="30" type="tel">
+                    </div>
+                    <div class="control-group">
+                        <label for="user_password_confirmation" id="user_password_confirmation_label">Choose a password
+                        </label>
+                        <input id="user_password_confirmation" name="user[password_confirmation]"
+                        size="30" type="password">
+                    </div>
+                    <div class="form-actions">
+                        <input class="btn btn-primary" name="commit" type="submit" value="Sign up">
+                    </div>
+                    <p>By signing up, you agree to the
+                        <a href="#tos" data-toggle="modal" id="tos_link">Terms of Service</a>.</p>
+                </fieldset>
+            </form>
+    </div>
+    <div id="logos">
+        <div id="col1">
+            <a href="http://codeforamerica.org/">
+    <img alt="Code for America" src="/assets/logos/cfa-3fdfb979df03137ba5257d48b6b0ccbc.png" title="Code for America">
+    </a>
+            <br>
+            <a href="http://bostonbuilt.org/">
+    <img alt="Built in Boston" src="/assets/logos/bostonbuilt-8049607e25fa66e911b741508db5a308.png" title="Built in Boston">
+    </a>
+        </div>
+        <div id="col2">
+            <a href="http://www.cityofboston.gov/">
+    <img alt="City of Boston" src="/assets/logos/boston-943404510709d3eca5a9b91db0cf7f7c.png" title="City of Boston">
+    </a>
+            <p id="mayor">
+                <a href="http://www.cityofboston.gov/mayor/">
+    Thomas M. Menino,
+    <em>
+    Mayor
+    </em>
+    </a>
+            </p>
+        </div>
+    </div>
+    <div id="feedback">
+        <p>
+            <a href="mailto:adoptahydrant@cityofboston.gov?subject=Adopt-a-Hydrant%20Send%20Feedback">
+    Send feedback
+    </a>
+        </p>
+    </div>
+    </div> <!-- /sidebar -->
+
 </body>
 </html>

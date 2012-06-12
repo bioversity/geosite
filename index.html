@@ -113,7 +113,6 @@ float: left;
     position: absolute;
     top:20px;
     left: 350px;
-    font-size: 30px;
     height: 50px;
     background: white;
     border-left: 0;
@@ -129,48 +128,67 @@ border-bottom-left-radius: 0px;
 </style>
 
 <script>
+var slide = {
+    visible: true,
+    bind: function() {
+        $('.slide').click(function() {
+            if(slide.visible) { // hide
+                $(".sidebar")
+                    .animate({ width: 0 }, 250)
+                    .animate({ width: '+=20' },185)
+                    .animate({ width: '0' },155, function() {
+                        slide.visible = false
+                    })
+                $(".slide")
+                    .animate({ left: 0 }, 250)
+                    .animate({ left: '+=20' },185)
+                    .animate({ left: '0' },155)
+                    .find('i')
+                    .attr("class", "icon-chevron-right")
+                    
+            } else { //show
+                $(".sidebar")
+                    .animate({ width: 350 }, 250)
+                    .animate({ width: '-=20' },185)
+                    .animate({ width: '350' },155, function() {
+                        slide.visible = true
+                    })
+                $(".slide")
+                    .animate({ left: 350 }, 250)
+                    .animate({ left: '-=20' },185)
+                    .animate({ left: '350' },155)
+                    .find('i')
+                    .attr("class", "icon-chevron-left")
+            }
+        })
+    }
+}
+
+var dropdown = {
+    bind: function() {
+        $('.btn-group .dropdown-menu li a').click(function(e) {
+            var $this = $(this)
+            var text = $this.text()
+
+            var $btngroup = $this.parent().parent().parent()
+            $btngroup.find('.dropdown-toggle span:first-child').text(text)
+
+
+        })
+    }
+}   
+
 $(function() {
 
-$('.dropdown-toggle').dropdown()
-
-var visible = true;
-$('.slide').click(function() {
-    
-    if(visible) { // hide
-        $(".sidebar")
-            .animate({ width: 0 }, 250)
-            .animate({ width: '+=20' },185)
-            .animate({ width: '0' },155, function() {
-                visible = false;
-            })
-        $(".slide")
-            .animate({ left: 0 }, 250)
-            .animate({ left: '+=20' },185)
-            .animate({ left: '0' },155)
-            .text('↪')
-            
-    } else { //show
-        $(".sidebar")
-            .animate({ width: 350 }, 250)
-            .animate({ width: '-=20' },185)
-            .animate({ width: '350' },155, function() {
-                visible = true;
-            })
-        $(".slide")
-            .animate({ left: 350 }, 250)
-            .animate({ left: '-=20' },185)
-            .animate({ left: '350' },155)
-            .text('↩')
-    }
-    //$(".slide").animate({ left: 'toggle' }, 350)
-
-});
+    slide.bind()
+    dropdown.bind()
+    $('.dropdown-toggle').dropdown()
 
 });
 </script>
 </head>
 <body>
-    <button class="btn slide">↩</button>
+    <button class="btn slide"><i class="icon-chevron-left"></i></button>
     <div class="table-cell sidebar">
         <h1>
             Collecting Missions
@@ -186,7 +204,7 @@ $('.slide').click(function() {
             <div class="control-group">
                 <div class="btn-group">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                        Year
+                        <span>Year</span>
                         <span class="caret"></span>
                     </a>
                       <ul class="dropdown-menu">
@@ -201,7 +219,7 @@ $('.slide').click(function() {
                       </ul>
                 </div>
                 <div class="btn-group">
-                  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">&gt;</button>
+                  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>&gt;</span></button>
                       <ul class="dropdown-menu">
                             <li><a href="#">=</a></li>
                             <li><a href="#">&gt;</a></li>
@@ -221,7 +239,7 @@ $('.slide').click(function() {
             <div class="control-group">
                 <label>Current API call</label>
                 <div class="alert">
-                    http://fucker.com/api/some-very-long-text-being-typed-right-now
+                    http://foo.com/api/some-very-long-text-being-typed-right-now
                 </div>
             </div>
             <div class="form-actions">
@@ -236,7 +254,7 @@ $('.slide').click(function() {
     </div>
     <div id="feedback">
         <p>
-            <a href="mailto:adoptahydrant@cityofboston.gov?subject=Adopt-a-Hydrant%20Send%20Feedback">Send feedback</a>
+            <a href="mailto:l.matteis@cgiar.org?subject=Collecting%20Missions%20Send%20Feedback">Send feedback</a> | <a href="https://github.com/bioversity/geosite">GitHub</a>
         </p>
     </div>
     </div> <!-- /sidebar -->

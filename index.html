@@ -106,7 +106,7 @@ float: left;
     width: 100% !important;
 }
 .add-row {
-    margin-left: 20px !important;
+    /*margin-left: 20px !important;*/
 }
 .slide {
     z-index: 20;
@@ -130,7 +130,7 @@ border-bottom-left-radius: 0px;
 <script>
 var slide = {
     visible: true,
-    bind: function() {
+    init: function() {
         $('.slide').click(function() {
             if(slide.visible) { // hide
                 $(".sidebar")
@@ -165,8 +165,8 @@ var slide = {
 }
 
 var dropdown = {
-    bind: function() {
-        $('.btn-group .dropdown-menu li a').click(function(e) {
+    init: function() {
+        $('.btn-group .dropdown-menu li a').live('click', function(e) {
             var $this = $(this)
             var text = $this.text()
 
@@ -178,10 +178,46 @@ var dropdown = {
     }
 }   
 
+var query = {
+    init: function() {
+        $('.add-query').live('click', function(e) {
+            var $this = $(this)
+            var $group = $this.parent().parent()
+
+            var $clone = $group.clone()
+
+
+            var $remove = $this.clone()
+            $remove.removeClass('add-query').addClass('remove-query').removeClass('btn-success').addClass('btn-danger').find('i').removeClass('icon-plus').addClass('icon-minus')
+
+            var $last = $clone.children().last()
+            if($last.children().length === 1) {
+                $last.append($remove)
+            }
+
+            $clone.insertAfter($group)
+
+            e.preventDefault()
+            e.stopPropagation()
+
+        })
+
+        $('.remove-query').live('click', function(e) {
+            var $this = $(this)
+
+            $this.parent().parent().remove()
+
+            e.preventDefault()
+            e.stopPropagation()
+        })
+    }
+}
+
 $(function() {
 
-    slide.bind()
-    dropdown.bind()
+    slide.init()
+    dropdown.init()
+    query.init()
     $('.dropdown-toggle').dropdown()
 
 });
@@ -230,9 +266,9 @@ $(function() {
                     <input type="text" placeholder="1986"/>
                 </div>
                 <div class="btn-group add-row">
-                    <button class="btn btn-success" href="#"><i class="icon-plus icon-white"></i>
+                    <button class="btn btn-success add-query" href="#">
+                        <i class="icon-plus icon-white"></i>
                     </button>
-                    <button class="btn btn-danger" href="#"><i class="icon-minus icon-white"></i></button>
                 </div>
             </div>
             <hr />

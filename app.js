@@ -3,12 +3,11 @@
   ;
 
 ddoc = 
-  { _id:'_design/app'
+  { _id:'_design/geosite'
   , rewrites : 
-    [ {from:"/", to:'index.html'}
-    , {from:"/api", to:'../../'}
-    , {from:"/api/*", to:'../../*'}
-    , {from:"/*", to:'*'}
+    [ 
+        {from:"/", to:'index.html'}
+
     ]
   }
   ;

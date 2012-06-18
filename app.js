@@ -6,13 +6,31 @@ ddoc =
   { _id:'_design/geosite'
   , rewrites : 
     [ 
-        {from:"/", to:'index.html'}
-
+        { from:'/', to:'index.html' }
     ]
   }
   ;
 
 ddoc.views = {};
+ddoc.views.all = {
+    map: function(doc) {
+        var prio = {
+            'Country_Name': true,
+            'COLLDATE': true,
+            'Genus': true,
+            'Species': true,
+            'SAMPSTAT': true,
+            'ID_MISSION': true,
+            'ID_SUB_MISSION': true
+        }
+        for(var i in doc) {
+            if(prio[i]) {
+                var normal = doc[i].toLowerCase()
+                emit([i, normal], null)
+            }
+        }
+    }
+}
 
 ddoc.validate_doc_update = function (newDoc, oldDoc, userCtx) {   
   if (newDoc._deleted === true && userCtx.roles.indexOf('_admin') === -1) {

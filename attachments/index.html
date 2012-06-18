@@ -173,12 +173,26 @@ var dropdown = {
             var $btngroup = $this.parent().parent().parent()
             $btngroup.find('.dropdown-toggle span:first-child').text(text)
 
+            query.buildQuery()
 
+        })
+        $('.query-group input').live('keypress', function(e) {
+            query.buildQuery()
         })
     }
 }   
 
 var query = {
+    couch: 'http://192.168.20.251:5984/geosite',
+    prio: {
+        'Country_Name': true,
+        'COLLDATE': true,
+        'Genus': true,
+        'Species': true,
+        'SAMPSTAT': true,
+        'ID_MISSION': true,
+        'ID_SUB_MISSION': true
+    },
     init: function() {
         $('.add-query').live('click', function(e) {
             var $this = $(this)
@@ -197,6 +211,8 @@ var query = {
 
             $clone.insertAfter($group)
 
+            query.buildQuery()
+
             e.preventDefault()
             e.stopPropagation()
 
@@ -207,8 +223,47 @@ var query = {
 
             $this.parent().parent().remove()
 
+            query.buildQuery()
+
             e.preventDefault()
             e.stopPropagation()
+        })
+        var $drop = $('.query-dropdown')
+        for(var i in query.prio) {
+            $drop.append('<li><a href="#">'+i+'</a></li>')
+        }
+    },
+    buildUrl: function(key, value, operator) {
+        var url = query.couch
+        url += '/_design/geosite'
+        url += '/_view/all?'
+
+        value = value.toLowerCase()
+
+        var params = {
+            startkey: '["' + key + '","'+ value +'"]',
+            endkey: '["' + key + '","'+ value +'ZZZZZZZZZ"]'
+        }
+
+        url += $.param(params)
+        return url
+    },
+    buildQuery: function() {
+        var $api = $('.api-calls')
+        $api.html('')
+        $('.query-group').each(function(){
+            var $this = $(this)
+            var children = $this.children()
+            var key, value, operator;
+            key = children.eq(0).find('.dropdown-toggle span').text()
+            value = children.eq(2).find('input').val()
+            operator = children.eq(1).find('.dropdown-toggle span').text()
+
+            var url = query.buildUrl(key, value, operator)
+
+            var ale = '<div class="alert">' + url +'</div>'
+
+            $api.append(ale)
         })
     }
 }
@@ -237,21 +292,13 @@ $(function() {
             <div class="control-group">
                 <label>Choose which properties to filter on</label>
             </div>
-            <div class="control-group">
+            <div class="control-group query-group">
                 <div class="btn-group">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span>Year</span>
+                        <span>COLLDATE</span>
                         <span class="caret"></span>
                     </a>
-                      <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">Separated link</a></li>
+                      <ul class="dropdown-menu query-dropdown">
                       </ul>
                 </div>
                 <div class="btn-group">
@@ -274,9 +321,7 @@ $(function() {
             <hr />
             <div class="control-group">
                 <label>Current API calls</label>
-                <div class="alert">
-                    http://foo.com/api/some-very-long-text-being-typed-right-now
-                </div>
+                <div class="api-calls"></div>
             </div>
             <div class="form-actions">
                 <input class="btn btn-primary submit-query" name="commit" type="submit" value="Submit">

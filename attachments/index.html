@@ -234,15 +234,27 @@ var query = {
         }
     },
     buildUrl: function(key, value, operator) {
+        var params;
         var url = query.couch
         url += '/_design/geosite'
         url += '/_view/all?'
 
         value = value.toLowerCase()
 
-        var params = {
-            startkey: '["' + key + '","'+ value +'"]',
-            endkey: '["' + key + '","'+ value +'ZZZZZZZZZ"]'
+        if(operator == '=') {
+            params = {
+                key: '["' + key + '","'+ value +'"]',
+            }
+        } else if (operator == '>') {
+            params = {
+                startkey: '["' + key + '","'+ value +'"]',
+                endkey: '["' + key + '","'+ value +'ZZZZZZZZZ"]'
+            }
+        } else if (operator == '<') {
+            params = {
+                startkey: '["' + key + '","'+ value +'ZZZZZZZZZ"]',
+                endkey: '["' + key + '","'+ value +'ZZZZZZZZZ"]'
+            }
         }
 
         url += $.param(params)

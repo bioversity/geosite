@@ -10,7 +10,7 @@ var dropdown = {
             query.buildQuery()
 
         })
-        $('.query-group input').live('keypress', function(e) {
+        $('.query-group input').live('keyup', function(e) {
             query.buildQuery()
         })
     }

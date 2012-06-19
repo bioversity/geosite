@@ -1,5 +1,6 @@
 var query = {
     couch: 'http://192.168.20.251:5984/geosite',
+    ddoc: '/_design/geosite',
     prio: {
         'Country_Name': true,
         'COLLDATE': true,
@@ -49,35 +50,60 @@ var query = {
             $drop.append('<li><a href="#">'+i+'</a></li>')
         }
     },
-    buildUrl: function(key, value, operator) {
-        var params;
-        var url = query.couch
-        url += '/_design/geosite'
-        url += '/_view/all?'
-
-        value = value.toLowerCase()
-
-        if(operator == '=') {
-            params = {
-                key: '["' + key + '","'+ value +'"]',
+    buildParams: function(key, group) {
+        var params = {};
+        for(var i in group) {
+            var a = group[i]
+            a.value = a.value.toLowerCase()
+            if(a.operator == '=') {
+                params.startkey = '["' + key + '","'+ a.value +'"]'
+                params.endkey = '["' + key + '","'+ a.value +'ZZZZZZZZZZZZZZZZZZZ"]'
             }
-        } else if (operator == '>') {
-            params = {
-                startkey: '["' + key + '","'+ value +'"]',
-                endkey: '["' + key + '","'+ value +'ZZZZZZZZZ"]'
+            if(a.operator == '>') {
+                params.startkey = '["' + key + '","'+ a.value +'ZZZZZZZZZZZZZZZZZZZ"]'
             }
-        } else if (operator == '<') {
-            params = {
-                startkey: '["' + key + '","'+ value +'ZZZZZZZZZ"]',
-                endkey: '["' + key + '","'+ value +'ZZZZZZZZZ"]'
+            if(a.operator == '<') {
+                params.endkey = '["' + key + '","'+ a.value +'ZZZZZZZZZZZZZZZZZZZ"]'
             }
         }
+        if(!params.startkey && params.endkey) {
+            // if there's just an endkey,
+            // let's convert it to startkey with descending true
+            params.startkey = params.endkey
+            params.descending = true
 
-        url += $.param(params)
+            delete params.endkey
+
+        }
+        if((params.startkey && !params.endkey) || (params.endkey && !params.startkey)) {
+            // an endkey or a startkey is missing, 
+            // apply a limit to not read the whole database
+            params.limit = 100
+        }
+        return params
+    },
+    buildUrl: function(groups) {
+
+        var $api = $('.api-calls')
+        $api.html('')
+
+        var url = query.couch
+        url += query.ddoc
+        url += '/_view/all?'
+
+        for(var key in groups) {
+
+            var group = groups[key]
+            var params = query.buildParams(key, group)
+
+            var ale = '<div class="alert">' + url + $.param(params) +'</div>'
+            $api.append(ale)
+        }
+
         return url
     },
     buildQuery: function() {
-        var groups = []
+        var groups = {}
         $('.query-group').each(function(){
             var $this = $(this)
             var children = $this.children()
@@ -86,21 +112,14 @@ var query = {
             value = children.eq(2).find('input').val()
             operator = children.eq(1).find('.dropdown-toggle span').text()
 
-            groups.push({
-                key: key,
+            groups[key] = groups[key] || []
+            groups[key].push({
                 value: value,
                 operator: operator
             })
 
         })
 
-        /*
-        var $api = $('.api-calls')
-        $api.html('')
-            var url = query.buildUrl(key, value, operator)
-            var ale = '<div class="alert">' + url +'</div>'
-            $api.append(ale)
-        */
 
         query.buildUrl(groups)
     }

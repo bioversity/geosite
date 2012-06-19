@@ -6,6 +6,8 @@
     left:0;
     height: 100%;
     overflow: auto;
+    z-index: 10;
+    background: white;
 }
 .sidebar .control-group {
     margin-left: 20px;
@@ -104,4 +106,12 @@ float: left;
 -moz-border-radius-bottomleft: 0px;
 border-top-left-radius: 0px;
 border-bottom-left-radius: 0px;
+}
+
+.map-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left:0;
+    top:0;
 }

@@ -15,6 +15,7 @@ var slide = {
                     .animate({ left: '0' },155)
                     .find('i')
                     .attr("class", "icon-chevron-right")
+
                     
             } else { //show
                 $(".sidebar")
@@ -29,6 +30,7 @@ var slide = {
                     .animate({ left: '350' },155)
                     .find('i')
                     .attr("class", "icon-chevron-left")
+
             }
         })
     }

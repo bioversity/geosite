@@ -34,7 +34,9 @@ ddoc.views.all = {
 
 ddoc.views.byCountry = {
     map: function(doc) {
-        emit(doc['Country_Name'], 1)
+        if(doc['Country_Name'] && doc['ID_SUB_MISSION']) {
+            emit([doc['Country_Name'].toLowerCase(), doc['ID_SUB_MISSION'].toLowerCase()], 1)
+        }
     },
     reduce: '_sum'
 }

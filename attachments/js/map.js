@@ -7,5 +7,11 @@ var map = {
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
+
+        // get all countries
+        $.getJSON(query.couch + query.ddoc + '/_view/byCountry?group=true', function(data) {
+            console.log(data)
+
+        })
     }
 }

@@ -1,0 +1,107 @@
+.sidebar {
+    width: 350px;
+    border-right: 1px solid #CCC;
+    position: absolute;
+    top:0;
+    left:0;
+    height: 100%;
+    overflow: auto;
+}
+.sidebar .control-group {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+input {
+    /*width: 100%;*/
+}
+.sidebar p#tagline {
+    margin-bottom:20px;
+color: 
+white;
+background-color: 
+#C43C35;
+background-repeat: repeat-x;
+background-image: -khtml-gradient(linear, left top, left bottom, from(
+#EE5F5B), to(
+#C43C35));
+background-image: -moz-linear-gradient(top, 
+#EE5F5B, 
+#C43C35);
+background-image: -ms-linear-gradient(top, 
+#EE5F5B, 
+#C43C35);
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, 
+#EE5F5B), color-stop(100%, 
+#C43C35));
+background-image: -webkit-linear-gradient(top, 
+#EE5F5B, 
+#C43C35);
+background-image: -o-linear-gradient(top, 
+#EE5F5B, 
+#C43C35);
+background-image: linear-gradient(top, 
+#EE5F5B, 
+#C43C35);
+border-color: 
+#C43C35 
+#C43C35 
+#882A25;
+border-color: 
+rgba(0, 0, 0, 0.1) 
+rgba(0, 0, 0, 0.1) 
+rgba(0, 0, 0, 0.25);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee5f5b', endColorstr='#c43c35', GradientType=0);
+padding: 10px 20px;
+text-align: center;
+text-shadow: 0 -1px 0 
+rgba(0, 0, 0, 0.25);
+
+}
+h1, .tag {
+    font-weight: 300;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+h1 {
+    padding-top: 20px;
+}
+.tag {
+    color:  #999;
+    margin-bottom: 20px;
+}
+.btn-group {
+    display: inline-block;
+}
+.btn-group input {
+    width: 100px;
+display: inline-block;
+margin-bottom: 0;
+float: left;
+}
+#feedback, #logos {
+    text-align: center;
+}
+.submit-query {
+    width: 100% !important;
+}
+.add-row {
+    /*margin-left: 20px !important;*/
+}
+.slide {
+    z-index: 20;
+    position: absolute;
+    top:20px;
+    left: 350px;
+    height: 50px;
+    background: white;
+    border-left: 0;
+    font-weight: bold;
+
+-webkit-border-top-left-radius: 0px;
+-webkit-border-bottom-left-radius: 0px;
+-moz-border-radius-topleft: 0px;
+-moz-border-radius-bottomleft: 0px;
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+}

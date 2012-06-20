@@ -12,6 +12,7 @@ ddoc =
   ;
 
 ddoc.views = {};
+/*
 ddoc.views.all = {
     map: function(doc) {
         var prio = {
@@ -31,14 +32,33 @@ ddoc.views.all = {
         }
     }
 }
+*/
 
 ddoc.views.byCountry = {
     map: function(doc) {
         if(doc['Country_Name'] && doc['ID_SUB_MISSION']) {
-            emit([doc['Country_Name'].toLowerCase(), doc['ID_SUB_MISSION'].toLowerCase()], 1)
+            emit([doc['Country_Name'].toLowerCase(), doc['ID_SUB_MISSION'].toLowerCase()], {
+                samples: 1,
+                lat: doc['LATITUDEdecimal'],
+                lng: doc['LONGITUDEdecimal']
+            })
         }
     },
-    reduce: '_sum'
+    reduce: function (key, values, rereduce) {
+        var ret = {
+            samples: 0,
+            lat: 0,
+            lng: 0
+        }
+        for(var i in values) {
+            ret.samples += values[i].samples
+            if(values[i].lat && values[i].lng) {
+                ret.lat = values[i].lat
+                ret.lng = values[i].lng
+            }
+        }
+        return ret
+    }
 }
 
 ddoc.validate_doc_update = function (newDoc, oldDoc, userCtx) {   

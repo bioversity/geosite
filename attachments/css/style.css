@@ -115,3 +115,148 @@ border-bottom-left-radius: 0px;
     left:0;
     top:0;
 }
+.alert {
+    overflow: hidden;
+}
+
+div.circle {
+    margin: 100px auto;
+    width:200px;
+    height:200px;
+}
+
+div.outer-circle {
+ 
+    /* Set the background and position */
+ 
+    background:transparent;
+    width:122px;
+    height:122px;
+ 
+    /* Set the border and the
+    border radius to be exactly
+    half the width and height
+    so that it looks like a circle */
+ 
+    -webkit-border-radius: 61px;
+    -moz-border-radius: 61px;
+    border-radius: 61px;
+    border:1px solid #aaaaaa;
+ 
+    /* You will need to use
+    position:absolute so that
+    the circles can appear on top of
+    each other.
+ 
+    Additionally, the z-index will
+    be used to determine which DIV
+    should appear lowest or highest */
+ 
+    position:absolute;
+    z-index:800;
+ 
+}
+
+div.middle-circle {
+ 
+    /* This margin is used to create
+    the 1px border between the middle
+    and outer circle */
+ 
+    margin:1px;
+ 
+    /* Set the width and height */
+ 
+    width:122px;
+    height:122px;
+ 
+    /* Set the border radius to half
+    the width and height to make it
+    look like a circle */
+ 
+    -webkit-border-radius: 61px;
+    -moz-border-radius: 61px;
+    border-radius: 61px;
+ 
+    /* Set the background gradient */
+ 
+    background: #ececec; /* Old browsers */
+    background: -moz-linear-gradient(top, #ececec 0%, #d8d8d8 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ececec), color-stop(100%,#d8d8d8)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ececec 0%,#d8d8d8 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ececec 0%,#d8d8d8 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #ececec 0%,#d8d8d8 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ececec', endColorstr='#d8d8d8',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #ececec 0%,#d8d8d8 100%); /* W3C */
+ 
+    /* You will need to use
+    position:absolute so that
+    the circles can appear on top of
+    each other.
+ 
+    Additionally, the z-index will
+    be used to determine which DIV
+    should appear lowest or highest */
+ 
+    position:absolute;
+    z-index:900;
+ 
+}
+
+div.inner-circle {
+ 
+    /* This margin is used to position
+    the circle in the center */
+ 
+    margin:14px;
+ 
+    /* Specify the background and
+    width and height */
+ 
+    background:#3f96d1;
+    width:96px;
+    height:96px;
+ 
+    /* Since we have text in it,
+    we need to specify the text
+    styles we want to use */
+ 
+    font-size:11px;
+    color:#FFF;
+    line-height:96px;
+    text-align:center;
+    font-family:Arial;
+ 
+    /* Set the border radius to half
+    the width and height to make it
+    look like a circle */
+ 
+    -webkit-border-radius: 48px;
+    -moz-border-radius: 48px;
+    border-radius: 48px;
+ 
+    /* For this circle, we will be using
+    an inset box shadow to replicate
+    the effect used. */
+ 
+    -webkit-box-shadow: inset 0px 1px 1px 0px #575757;
+    -moz-box-shadow: inset 0px 1px 1px 0px #575757;
+    box-shadow: inset 0px 1px 1px 0px #575757;
+ 
+    /* We can also add a bottom border
+    to make it look slightly more 3D */
+ 
+    border-bottom:1px solid #FFF;
+ 
+    /* You will need to use
+    position:absolute so that
+    the circles can appear on top of
+    each other.
+ 
+    Additionally, the z-index will
+    be used to determine which DIV
+    should appear lowest or highest */
+ 
+    position:absolute;
+    z-index:1000;
+}

@@ -72,23 +72,48 @@ var map = {
 
 CircleOverlay = function(latLng, size, text, mapObject) {
     this.latLng_ = latLng
+    this.size_ = size
+    this.text_ = text
     this.setMap(mapObject)
 }
 
 CircleOverlay.prototype = new google.maps.OverlayView()
 
+CircleOverlay.prototype.setSize_ = function($div, size) {
+    $div.css('width', size + 'px')    
+    $div.css('height', size + 'px')    
+
+    var half = size/2
+    $div.css('-webkit-border-radius', half + 'px')
+    $div.css('-moz-border-radius', half + 'px')
+    $div.css('border-radius', half + 'px')
+}
 CircleOverlay.prototype.onAdd = function() {
-    this.div_ = $('<div class="circle"><div class="outer-circle"></div><div class="middle-circle"></div><div class="inner-circle">Text In Circle</div></div>')    
-    this.div_.css('position', 'absolute')
+    this.circle_ = $('<div class="circle"></div>') 
+    var $outer = $('<div class="outer-circle"></div>')
+    var $middle = $('<div class="middle-circle"></div>')
+    var $inner = $('<div class="inner-circle"></div>')
+    $inner.text(this.text_)
+
+    this.setSize_(this.circle_, this.size_)
+    this.setSize_($outer, this.size_ - 20)
+    this.setSize_($middle, this.size_ - 20)
+    this.setSize_($inner, this.size_ - 40)
+
+    this.circle_.append($outer)
+    this.circle_.append($middle)
+    this.circle_.append($inner)
+
+    this.circle_.css('position', 'absolute')
     var panes = this.getPanes()
-    panes.overlayLayer.appendChild(this.div_.get(0))
+    panes.overlayLayer.appendChild(this.circle_.get(0))
 }
 
 CircleOverlay.prototype.draw = function() {
     var overlayProjection = this.getProjection()
     var pos = overlayProjection.fromLatLngToDivPixel(this.latLng_);
 
-    var $div = this.div_
-    $div.css('left', pos.x + 'px')
-    $div.css('top', pos.y + 'px')
+    var $circle = this.circle_
+    $circle.css('left', pos.x + 'px')
+    $circle.css('top', pos.y + 'px')
 }

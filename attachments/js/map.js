@@ -65,7 +65,6 @@ var map = {
 
             for(var c in countries) {
                 map.addCountryMarker(c, countries[c])
-                break
             }
         })
     }
@@ -80,7 +79,12 @@ CircleOverlay = function(latLng, size, text, mapObject) {
 
 CircleOverlay.prototype = new google.maps.OverlayView()
 
-CircleOverlay.prototype.setSizeCircle_ = function(size) {
+CircleOverlay.prototype.setSizeCircle_ = function(numMissions, width) {
+    // size should be multiple of 20 ALWAYS
+    size = Math.round(numMissions/20)
+    if(size == 0) size = 1
+    size = (size * 20) * width
+
     var $circle = this.circle_.circle
     var $outer = this.circle_.outer
     var $middle = this.circle_.middle
@@ -120,6 +124,8 @@ CircleOverlay.prototype.setSizeCircle_ = function(size) {
     $inner.css('-webkit-border-radius', half + 'px')
     $inner.css('-moz-border-radius', half + 'px')
     $inner.css('border-radius', half + 'px')
+
+    return outer
 }
 CircleOverlay.prototype.onAdd = function() {
     this.circle_ = {
@@ -142,10 +148,11 @@ CircleOverlay.prototype.onAdd = function() {
 CircleOverlay.prototype.draw = function() {
     var overlayProjection = this.getProjection()
     var pos = overlayProjection.fromLatLngToDivPixel(this.latLng_);
+    var width = Math.round(overlayProjection.getWorldWidth() / 1000)
 
-    this.setSizeCircle_(20)
+    width = this.setSizeCircle_(this.size_, width) / 2
 
     var $circle = this.circle_.circle
-    $circle.css('left', pos.x + 'px')
-    $circle.css('top', pos.y + 'px')
+    $circle.css('left', (pos.x - width) + 'px')
+    $circle.css('top', (pos.y - width) + 'px')
 }

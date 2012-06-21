@@ -1,12 +1,13 @@
 var map = {
     mapObject: null,
+    mc: null, // marker cluster
     geocoder: null,
     addCountryMarker: function(country, obj) {
         var latLng = new google.maps.LatLng(obj.lat, obj.lng)
         var size = obj.numMissions
         var text = obj.numMissions
 
-        new CircleOverlay(latLng, size, text, map.mapObject)
+        //new CircleOverlay(latLng, size, text, map.mapObject)
         /*
         var circle = new google.maps.Circle({
             map: map.mapObject,
@@ -36,7 +37,7 @@ var map = {
     init: function() {
         var myOptions = {
           center: new google.maps.LatLng(0, 0),
-          zoom: 2,
+          zoom: 4,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           zoomControlOptions: {
               style: google.maps.ZoomControlStyle.LARGE,
@@ -48,9 +49,11 @@ var map = {
         map.mapObject = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
 
+
         // get all countries
         $.getJSON(query.couch + query.ddoc + '/_view/byCountry?group=true', function(data) {
             var countries = {}
+            var markers = []
             for(var i in data.rows) {
                 var row = data.rows[i]
                 if(!countries[row.key[0]]) {
@@ -61,11 +64,21 @@ var map = {
                 obj.samples = obj.samples ? obj.samples + row.value.samples : row.value.samples
                 obj.lat = row.value.lat || (obj.lat || 0)
                 obj.lng = row.value.lng || (obj.lng || 0)
+
+                var latLng = new google.maps.LatLng(obj.lat, obj.lng)
+                var marker = new google.maps.Marker({
+                    position: latLng
+                });
+                markers.push(marker);
             }
 
+            /*
             for(var c in countries) {
-                map.addCountryMarker(c, countries[c])
+
+                //map.addCountryMarker(c, countries[c])
             }
+            */
+            map.mc = new MarkerClusterer(map.mapObject, markers);
         })
     }
 }
@@ -82,8 +95,9 @@ CircleOverlay.prototype = new google.maps.OverlayView()
 CircleOverlay.prototype.setSizeCircle_ = function(numMissions, width) {
     // size should be multiple of 20 ALWAYS
     size = Math.round(numMissions/20)
-    if(size == 0) size = 1
+    //if(size == 0) size = 1
     size = (size * 20) * width
+    if(size == 0)size = 10 * width
 
     var $circle = this.circle_.circle
     var $outer = this.circle_.outer

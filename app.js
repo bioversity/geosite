@@ -12,7 +12,6 @@ ddoc =
   ;
 
 ddoc.views = {};
-/*
 ddoc.views.all = {
     map: function(doc) {
         var prio = {
@@ -32,7 +31,6 @@ ddoc.views.all = {
         }
     }
 }
-*/
 
 ddoc.views.byCountry = {
     map: function(doc) {

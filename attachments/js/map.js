@@ -50,12 +50,15 @@ var map = {
             myOptions);
 
 
-        // get all countries
-        $.getJSON(query.couch + query.ddoc + '/_view/byCountry?group=true', function(data) {
+        map.showMarkers(query.couch + query.ddoc + '/_view/byCountry?group=true')
+    },
+    showMarkers: function(url, cb) {
+        $.getJSON(url, function(data) {
             var countries = {}
             var markers = []
             for(var i in data.rows) {
                 var row = data.rows[i]
+                /*
                 if(!countries[row.key[0]]) {
                     countries[row.key[0]] = {}
                 }
@@ -64,8 +67,9 @@ var map = {
                 obj.samples = obj.samples ? obj.samples + row.value.samples : row.value.samples
                 obj.lat = row.value.lat || (obj.lat || 0)
                 obj.lng = row.value.lng || (obj.lng || 0)
+                */
 
-                var latLng = new google.maps.LatLng(obj.lat, obj.lng)
+                var latLng = new google.maps.LatLng(row.value.lat, row.value.lng)
                 var marker = new google.maps.Marker({
                     position: latLng
                 });
@@ -79,6 +83,7 @@ var map = {
             }
             */
             map.mc = new MarkerClusterer(map.mapObject, markers);
+            if(cb) cb()
         })
     }
 }

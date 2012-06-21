@@ -10,6 +10,7 @@ var query = {
         'ID_MISSION': true,
         'ID_SUB_MISSION': true
     },
+    urls: [],
     init: function() {
         $('.add-query').live('click', function(e) {
             var $this = $(this)
@@ -49,6 +50,16 @@ var query = {
         for(var i in query.prio) {
             $drop.append('<li><a href="#">'+i+'</a></li>')
         }
+
+        $('#submit').click(function(e) {
+            query.buildQuery()
+            for(var i in query.urls) {
+                map.showMarkers(query.urls[i], function() {
+                    console.log('done')
+
+                })
+            }
+        })
     },
     buildParams: function(key, group) {
         var params = {};
@@ -86,6 +97,7 @@ var query = {
 
         var $api = $('.api-calls')
         $api.html('')
+        query.urls = []
 
         var url = query.couch
         url += query.ddoc
@@ -96,7 +108,10 @@ var query = {
             var group = groups[key]
             var params = query.buildParams(key, group)
 
-            var ale = '<div class="alert">' + url + $.param(params) +'</div>'
+            url = url + $.param(params)
+
+            query.urls.push(url)
+            var ale = '<div class="alert">' + url +'</div>'
             $api.append(ale)
         }
 

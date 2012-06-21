@@ -53,6 +53,9 @@ var map = {
         map.showMarkers(query.couch + query.ddoc + '/_view/byCountry?group=true')
     },
     showMarkers: function(url, cb) {
+        if(map.mc) {
+            map.mc.clearMarkers()
+        }
         $.getJSON(url, function(data) {
             var countries = {}
             var markers = []
@@ -69,7 +72,11 @@ var map = {
                 obj.lng = row.value.lng || (obj.lng || 0)
                 */
 
-                var latLng = new google.maps.LatLng(row.value.lat, row.value.lng)
+                if(row.value) {
+                    var latLng = new google.maps.LatLng(row.value.lat, row.value.lng)
+                } else if(row.doc) {
+                    var latLng = new google.maps.LatLng(row.doc.LATITUDEdecimal, row.doc.LONGITUDEdecimal)
+                }
                 var marker = new google.maps.Marker({
                     position: latLng
                 });

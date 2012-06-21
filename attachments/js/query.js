@@ -91,6 +91,7 @@ var query = {
             // apply a limit to not read the whole database
             params.limit = 100
         }
+        params.include_docs = true
         return params
     },
     buildUrl: function(groups) {

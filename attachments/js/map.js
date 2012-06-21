@@ -4,7 +4,7 @@ var map = {
     addCountryMarker: function(country, obj) {
         var latLng = new google.maps.LatLng(obj.lat, obj.lng)
         var size = obj.numMissions
-        var text = obj.numMissions + ' missions!'
+        var text = obj.numMissions
 
         new CircleOverlay(latLng, size, text, map.mapObject)
         /*
@@ -65,6 +65,7 @@ var map = {
 
             for(var c in countries) {
                 map.addCountryMarker(c, countries[c])
+                break
             }
         })
     }
@@ -79,15 +80,20 @@ CircleOverlay = function(latLng, size, text, mapObject) {
 
 CircleOverlay.prototype = new google.maps.OverlayView()
 
-CircleOverlay.prototype.setSizeCircle_ = function($circle, $outer, $middle, $inner, size) {
+CircleOverlay.prototype.setSizeCircle_ = function(size) {
+    var $circle = this.circle_.circle
+    var $outer = this.circle_.outer
+    var $middle = this.circle_.middle
+    var $inner = this.circle_.inner
+
     $circle.css('width', size + 'px')    
     $circle.css('height', size + 'px')    
 
-    var outer = size - 78
+    var outer = size
     $outer.css('width', outer + 'px')    
     $outer.css('height', outer + 'px')    
 
-    var half = outer/2
+    var half = outer /2
     $outer.css('-webkit-border-radius', half + 'px')
     $outer.css('-moz-border-radius', half + 'px')
     $outer.css('border-radius', half + 'px')
@@ -99,39 +105,47 @@ CircleOverlay.prototype.setSizeCircle_ = function($circle, $outer, $middle, $inn
     $middle.css('-moz-border-radius', half + 'px')
     $middle.css('border-radius', half + 'px')
 
-    var inner = outer - 26
+    var perc = Math.round(((outer * 10) / 100))
+    var inner = outer - perc
+    var margin  = (outer /2) - (inner/2) + 1
     $inner.css('width', inner + 'px')    
     $inner.css('height', inner + 'px')    
+    $inner.css('margin', margin + 'px')
+    $inner.css('line-height', inner + 'px')
+
+    // font size is 10% of size
+    $inner.css('font-size', (perc * 4) + 'px')
 
     var half = inner/2
-
     $inner.css('-webkit-border-radius', half + 'px')
     $inner.css('-moz-border-radius', half + 'px')
     $inner.css('border-radius', half + 'px')
 }
 CircleOverlay.prototype.onAdd = function() {
-    this.circle_ = $('<div class="circle"></div>') 
-    var $outer = $('<div class="outer-circle"></div>')
-    var $middle = $('<div class="middle-circle"></div>')
-    var $inner = $('<div class="inner-circle"></div>')
-    $inner.text(this.text_)
+    this.circle_ = {
+        circle: $('<div class="circle"></div>'),
+        outer: $('<div class="outer-circle"></div>'),
+        middle: $('<div class="middle-circle"></div>'),
+        inner: $('<div class="inner-circle"></div>')
+    }
+    this.circle_.inner.text(this.text_)
 
-    this.setSizeCircle_(this.circle_, $outer, $middle, $inner, 100)
+    this.circle_.circle.append(this.circle_.outer)
+    this.circle_.circle.append(this.circle_.middle)
+    this.circle_.circle.append(this.circle_.inner)
 
-    this.circle_.append($outer)
-    this.circle_.append($middle)
-    this.circle_.append($inner)
-
-    this.circle_.css('position', 'absolute')
+    this.circle_.circle.css('position', 'absolute')
     var panes = this.getPanes()
-    panes.overlayLayer.appendChild(this.circle_.get(0))
+    panes.overlayLayer.appendChild(this.circle_.circle.get(0))
 }
 
 CircleOverlay.prototype.draw = function() {
     var overlayProjection = this.getProjection()
     var pos = overlayProjection.fromLatLngToDivPixel(this.latLng_);
 
-    var $circle = this.circle_
+    this.setSizeCircle_(20)
+
+    var $circle = this.circle_.circle
     $circle.css('left', pos.x + 'px')
     $circle.css('top', pos.y + 'px')
 }

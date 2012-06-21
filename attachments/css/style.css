@@ -120,7 +120,7 @@ border-bottom-left-radius: 0px;
 }
 
 div.circle {
-    margin: 100px auto;
+/*    margin: 100px auto;*/
     width:200px;
     height:200px;
 }
@@ -225,7 +225,7 @@ div.inner-circle {
     color:#FFF;
     line-height:96px;
     text-align:center;
-    font-family:Arial;
+    font-weight: bold;
  
     /* Set the border radius to half
     the width and height to make it

@@ -8,31 +8,6 @@ var map = {
         var text = obj.numMissions
 
         //new CircleOverlay(latLng, size, text, map.mapObject)
-        /*
-        var circle = new google.maps.Circle({
-            map: map.mapObject,
-            center: latLng,
-            fillColor: '#5e99cd',
-            fillOpacity: 1,
-            strokeColor: '#e3e3e3',
-            strokeWeight: 3,
-            radius: (obj.numMissions * 10000)
-         });
-        */
-
-        /*
-        map.geocoder.geocode( { 'address': country}, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-            //map.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-            });
-          } else {
-            alert("Geocode was not successful for the following reason: " + status);
-          }
-        });
-        */
     },
     init: function() {
         var myOptions = {
@@ -61,7 +36,6 @@ var map = {
             var markers = []
             for(var i in data.rows) {
                 var row = data.rows[i]
-                /*
                 if(!countries[row.key[0]]) {
                     countries[row.key[0]] = {}
                 }
@@ -70,8 +44,8 @@ var map = {
                 obj.samples = obj.samples ? obj.samples + row.value.samples : row.value.samples
                 obj.lat = row.value.lat || (obj.lat || 0)
                 obj.lng = row.value.lng || (obj.lng || 0)
-                */
 
+                /*
                 if(row.value) {
                     var latLng = new google.maps.LatLng(row.value.lat, row.value.lng)
                 } else if(row.doc) {
@@ -81,15 +55,22 @@ var map = {
                     position: latLng
                 });
                 markers.push(marker);
+                */
             }
 
-            /*
             for(var c in countries) {
+                var latLng = new google.maps.LatLng(countries[c].lat, countries[c].lng)
+                var marker = new google.maps.Marker({
+                    position: latLng
+                });
+                marker.numMissions = countries[c].numMissions
+                marker.country = c
+
+                markers.push(marker)
 
                 //map.addCountryMarker(c, countries[c])
             }
-            */
-            map.mc = new MarkerClusterer(map.mapObject, markers);
+            map.mc = new MarkerClusterer(map.mapObject, markers)
             if(cb) cb()
         })
     }

@@ -173,6 +173,10 @@ function MarkerClusterer(map, opt_markers, opt_options) {
     that.redraw();
   });
 
+  google.maps.event.addListener(this.map_, 'dragend', function() {
+    that.findMostCentered();
+  })
+
   // Finally, add the markers
   if (opt_markers && opt_markers.length) {
     this.addMarkers(opt_markers, false);
@@ -355,16 +359,15 @@ MarkerClusterer.prototype.getMaxZoom = function() {
 MarkerClusterer.prototype.calculator_ = function(markers, numStyles) {
   var index = 0;
   var count = markers.length;
+  for(var i in markers) {
+    count += markers[i].numMissions
+  }
   var dv = count;
   while (dv !== 0) {
     dv = parseInt(dv / 10, 10);
     index++;
   }
 
-  for(var i in markers) {
-    count += markers[i].numMissions
-    index += markers[i].numMissions
-  }
 
   index = Math.min(index, numStyles);
   return {
@@ -686,6 +689,13 @@ MarkerClusterer.prototype.resetViewport = function(opt_hide) {
 
   this.clusters_ = [];
 };
+MarkerClusterer.prototype.findMostCentered = function() {
+    for(var i in this.clusters_) {
+        var div = this.clusters_[i].clusterIcon_.div_
+        console.log(div)
+        break
+    }
+}
 
 /**
  *
@@ -1048,6 +1058,7 @@ function ClusterIcon(cluster, styles, opt_padding) {
  * Triggers the clusterclick event and zoom's if the option is set.
  */
 ClusterIcon.prototype.triggerClusterClick = function() {
+    return;
   var markerClusterer = this.cluster_.getMarkerClusterer();
 
   // Trigger the clusterclick event.
@@ -1075,10 +1086,12 @@ ClusterIcon.prototype.onAdd = function() {
   var panes = this.getPanes();
   panes.overlayMouseTarget.appendChild(this.div_);
 
+    /*
   var that = this;
   google.maps.event.addDomListener(this.div_, 'click', function() {
     that.triggerClusterClick();
   });
+  */
 };
 
 

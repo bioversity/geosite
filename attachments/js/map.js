@@ -2,12 +2,15 @@ var map = {
     mapObject: null,
     mc: null, // marker cluster
     geocoder: null,
+    dragend: false, // callback called when a drag is performed on the map
+    infowindows: [],
+    windowIsOpen: false,
     addCountryMarker: function(country, obj) {
         var latLng = new google.maps.LatLng(obj.lat, obj.lng)
         var size = obj.numMissions
         var text = obj.numMissions
 
-        //new CircleOverlay(latLng, size, text, map.mapObject)
+        new CircleOverlay(latLng, size, text, map.mapObject)
     },
     init: function() {
         var myOptions = {
@@ -20,17 +23,60 @@ var map = {
           },
           panControl: false
         };
-        map.geocoder = geocoder = new google.maps.Geocoder();
+        map.geocoder = new google.maps.Geocoder();
         map.mapObject = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
 
+        map.showCountry('italy')
 
-        map.showMarkers(query.couch + query.ddoc + '/_view/byCountry?group=true')
+
+        //map.showMarkers(query.couch + query.ddoc + '/_view/byCountry?group=true')
+
+    },
+    showCountry: function(country) {
+        // call couch and get all samples for this country
+        country = country.toLowerCase()
+        $.getJSON(query.couch + query.ddoc + '/_view/byCountry?startkey=["'+country+'"]&endkey=["'+country+'",{}]&group=true', function(data) {
+            var bounds = new google.maps.LatLngBounds()
+            for(var i in data.rows) {
+                var value = data.rows[i].value
+                var latLng = new google.maps.LatLng(value.lat, value.lng)
+
+                bounds.extend(latLng)
+
+                var circle = new CircleOverlay(latLng, value.samples, value.samples, map.mapObject)
+
+                map.bindMouse(value.samples + ' missions', circle)
+
+            }
+            map.mapObject.fitBounds(bounds)
+        })
+
+    },
+    bindMouse: function(content, circleOverlay) {
+        google.maps.event.addListener(circleOverlay, 'mouseout', function() {
+            map.windowIsOpen = false
+
+            // close the ones open
+            for(var i in map.infowindows) {
+                map.infowindows[i].close()
+            }
+        })
+        google.maps.event.addListener(circleOverlay, 'mouseover', function() {
+            if(map.windowIsOpen) return;
+
+
+            var infowindow = new google.maps.InfoWindow({
+                content: content
+            })
+            infowindow.setPosition(circleOverlay.latLng_)
+            infowindow.open(map.mapObject)
+
+            map.infowindows.push(infowindow)
+            map.windowIsOpen = true
+        })
     },
     showMarkers: function(url, cb) {
-        if(map.mc) {
-            map.mc.clearMarkers()
-        }
         $.getJSON(url, function(data) {
             var countries = {}
             var markers = []
@@ -59,19 +105,17 @@ var map = {
             }
 
             for(var c in countries) {
-                var latLng = new google.maps.LatLng(countries[c].lat, countries[c].lng)
-                var marker = new google.maps.Marker({
-                    position: latLng
-                });
+                /*
                 marker.numMissions = countries[c].numMissions
                 marker.country = c
 
                 markers.push(marker)
+                */
 
                 //map.addCountryMarker(c, countries[c])
             }
-            map.mc = new MarkerClusterer(map.mapObject, markers)
-            if(cb) cb()
+            /*
+            */
         })
     }
 }
@@ -85,13 +129,7 @@ CircleOverlay = function(latLng, size, text, mapObject) {
 
 CircleOverlay.prototype = new google.maps.OverlayView()
 
-CircleOverlay.prototype.setSizeCircle_ = function(numMissions, width) {
-    // size should be multiple of 20 ALWAYS
-    size = Math.round(numMissions/20)
-    //if(size == 0) size = 1
-    size = (size * 20) * width
-    if(size == 0)size = 10 * width
-
+CircleOverlay.prototype.setSizeCircle_ = function(size, width) {
     var $circle = this.circle_.circle
     var $outer = this.circle_.outer
     var $middle = this.circle_.middle
@@ -149,7 +187,20 @@ CircleOverlay.prototype.onAdd = function() {
 
     this.circle_.circle.css('position', 'absolute')
     var panes = this.getPanes()
-    panes.overlayLayer.appendChild(this.circle_.circle.get(0))
+
+    var domCircle = this.circle_.circle.get(0)
+    panes.overlayMouseTarget.appendChild(domCircle)
+
+    var me = this
+    google.maps.event.addDomListener(domCircle, 'click', function() {
+        google.maps.event.trigger(me, 'click');
+    });
+    google.maps.event.addDomListener(domCircle, 'mouseover', function() {
+        google.maps.event.trigger(me, 'mouseover');
+    });
+    google.maps.event.addDomListener(domCircle, 'mouseout', function() {
+        google.maps.event.trigger(me, 'mouseout');
+    });
 }
 
 CircleOverlay.prototype.draw = function() {
@@ -157,7 +208,7 @@ CircleOverlay.prototype.draw = function() {
     var pos = overlayProjection.fromLatLngToDivPixel(this.latLng_);
     var width = Math.round(overlayProjection.getWorldWidth() / 1000)
 
-    width = this.setSizeCircle_(this.size_, width) / 2
+    width = this.setSizeCircle_(40, width) / 2
 
     var $circle = this.circle_.circle
     $circle.css('left', (pos.x - width) + 'px')

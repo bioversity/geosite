@@ -121,6 +121,7 @@ border-bottom-left-radius: 0px;
 
 div.circle {
 /*    margin: 100px auto;*/
+    cursor: pointer;
     width:200px;
     height:200px;
 }
@@ -213,7 +214,7 @@ div.inner-circle {
     /* Specify the background and
     width and height */
  
-    background:#3f96d1;
+    background:#C43C35;
     width:96px;
     height:96px;
  
@@ -260,3 +261,5 @@ div.inner-circle {
     position:absolute;
     z-index:1000;
 }
+
+

@@ -11,12 +11,12 @@
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="https://github.com/quirkey/sammy/raw/master/lib/min/sammy-latest.min.js"></script>
     <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAgymWVxqul11-hNQpNvgjL1ZzQsq-d8WI&sensor=false">
     </script>
 
-    <script type="text/javascript" src="js/markerclusterer.js"></script>
-    
+    <script type="text/javascript" src="js/routes.js"></script>
     <script type="text/javascript" src="js/slide.js"></script>
     <script type="text/javascript" src="js/dropdown.js"></script>
     <script type="text/javascript" src="js/query.js"></script>
@@ -31,12 +31,18 @@
 <script>
 $(function() {
 
+
     slide.init()
     dropdown.init()
     query.init()
     map.init()
     $('.dropdown-toggle').dropdown()
 
+    var s = $.sammy(function() {
+        this.get('#/', routes.index) 
+        this.get('#/:country', routes.index) 
+    })
+    s.run('#/')
 })
 </script>
 

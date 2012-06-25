@@ -4,6 +4,7 @@ var map = {
     geocoder: null,
     dragend: false, // callback called when a drag is performed on the map
     currWindow: false,
+    circleOverlays: [],
     addCountryMarker: function(country, obj) {
         var latLng = new google.maps.LatLng(obj.lat, obj.lng)
         var size = obj.numMissions
@@ -11,11 +12,11 @@ var map = {
 
         new CircleOverlay(latLng, size, text, map.mapObject)
     },
-    init: function() {
+    init: function(country) {
         var myOptions = {
           center: new google.maps.LatLng(0, 0),
           zoom: 4,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeId: google.maps.MapTypeId.TERRAIN,
           zoomControlOptions: {
               style: google.maps.ZoomControlStyle.LARGE,
               position: google.maps.ControlPosition.RIGHT_TOP
@@ -26,36 +27,51 @@ var map = {
         map.mapObject = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
 
-        map.showCountry('italy')
-
-
-        //map.showMarkers(query.couch + query.ddoc + '/_view/byCountry?group=true')
-
     },
-    showCountry: function(country) {
+    getMissions: function(country, cb) {
         // call couch and get all samples for this country
         country = country.toLowerCase()
         $.getJSON(query.couch + query.ddoc + '/_view/byCountry?startkey=["'+country+'"]&endkey=["'+country+'",{}]&group=true', function(data) {
-            var bounds = new google.maps.LatLngBounds()
-            for(var i in data.rows) {
-                var value = data.rows[i].value
-                var latLng = new google.maps.LatLng(value.lat, value.lng)
-
-                bounds.extend(latLng)
-
-                var circle = new CircleOverlay(latLng, value.samples, value.samples, map.mapObject)
-
-                map.bindMouse('<h2>'+value.samples + ' missions</h2>', circle)
-
-            }
-            map.mapObject.fitBounds(bounds)
+            cb(data) 
         })
+    },
+    showMissions: function(data) {
+        for(var x in map.circleOverlays) {
+            var c = map.circleOverlays[x]
+            c.setMap(null)
+        }
+        map.circleOverlays = []
+        var bounds = new google.maps.LatLngBounds()
+        for(var i in data.rows) {
+            var value = data.rows[i].value
+            var key = data.rows[i].key
+            var subMissionId = key[1]
+            var latLng = new google.maps.LatLng(value.lat, value.lng)
 
+            bounds.extend(latLng)
+
+            var circle = new CircleOverlay(latLng, value.samples, value.samples, map.mapObject)
+            map.circleOverlays.push(circle)
+
+            map.bindMouse('<h2>'+subMissionId.toUpperCase() + '</h2><p><b>'+value.samples+'</b> samples recorded under this mission</p><p><i>Click to see the samples</i></p>', circle)
+
+        }
+        map.mapObject.fitBounds(bounds)
+    },
+    getRandomCountry: function(cb) {
+        $.getJSON(query.couch + query.ddoc + '/_view/byCountry?group_level=1', function(data) {
+            var countries = []
+            for(var i in data.rows) {
+                countries.push(data.rows[i].key[0]) 
+            }
+            countries.sort(function() {return 0.5 - Math.random()})
+            var randomCountry = countries[0]
+            cb(randomCountry)
+        })
     },
     bindMouse: function(content, circleOverlay) {
         google.maps.event.addListener(circleOverlay, 'mouseover', function() {
             if(map.currWindow && map.currWindow.getContent() == content) {
-                console.log(map.currWindow)
                 return;
             }
             if(map.currWindow && map.currWindow.getContent() != content) {
@@ -86,31 +102,7 @@ var map = {
                 obj.lat = row.value.lat || (obj.lat || 0)
                 obj.lng = row.value.lng || (obj.lng || 0)
 
-                /*
-                if(row.value) {
-                    var latLng = new google.maps.LatLng(row.value.lat, row.value.lng)
-                } else if(row.doc) {
-                    var latLng = new google.maps.LatLng(row.doc.LATITUDEdecimal, row.doc.LONGITUDEdecimal)
-                }
-                var marker = new google.maps.Marker({
-                    position: latLng
-                });
-                markers.push(marker);
-                */
             }
-
-            for(var c in countries) {
-                /*
-                marker.numMissions = countries[c].numMissions
-                marker.country = c
-
-                markers.push(marker)
-                */
-
-                //map.addCountryMarker(c, countries[c])
-            }
-            /*
-            */
         })
     }
 }
@@ -124,14 +116,23 @@ CircleOverlay = function(latLng, size, text, mapObject) {
 
 CircleOverlay.prototype = new google.maps.OverlayView()
 
-CircleOverlay.prototype.setSizeCircle_ = function(size, width) {
+CircleOverlay.prototype.setSizeCircle_ = function(width) {
+    var size = 40
+
     var $circle = this.circle_.circle
     var $outer = this.circle_.outer
     var $middle = this.circle_.middle
     var $inner = this.circle_.inner
 
+
     $circle.css('width', size + 'px')    
     $circle.css('height', size + 'px')    
+
+    if(this.size_ <= 10) {
+        $inner.css('background-color', '#5BB75B')    
+    } else if(this.size_ <= 100) {
+        $inner.css('background-color', '#0074CC')    
+    }
 
     var outer = size
     $outer.css('width', outer + 'px')    
@@ -203,9 +204,13 @@ CircleOverlay.prototype.draw = function() {
     var pos = overlayProjection.fromLatLngToDivPixel(this.latLng_);
     var width = Math.round(overlayProjection.getWorldWidth() / 1000)
 
-    width = this.setSizeCircle_(40, width) / 2
+    width = this.setSizeCircle_(width) / 2
 
     var $circle = this.circle_.circle
     $circle.css('left', (pos.x - width) + 'px')
     $circle.css('top', (pos.y - width) + 'px')
+}
+CircleOverlay.prototype.onRemove = function() {
+    $(this.circle_.circle).remove()
+    this.circle_ = null
 }

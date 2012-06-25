@@ -27,6 +27,17 @@ var map = {
         map.mapObject = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
 
+        google.maps.event.addListener(map.mapObject, 'click', function(event) {
+            map.geocoder.geocode( { 'location': event.latLng}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var country = results[results.length - 1].formatted_address
+                    window.location.hash = '/' + country
+                } else {
+                    console.log("Geocode was not successful for the following reason: " + status);
+                }
+            })
+        })
+
     },
     getMissions: function(country, cb) {
         // call couch and get all samples for this country
@@ -41,11 +52,15 @@ var map = {
             c.setMap(null)
         }
         map.circleOverlays = []
+        if(map.currWindow) map.currWindow.close()
         var bounds = new google.maps.LatLngBounds()
         for(var i in data.rows) {
             var value = data.rows[i].value
             var key = data.rows[i].key
             var subMissionId = key[1]
+            if(!value.lat && !value.lng) { // lat and lng are 0 for this mission - show it in the country anyway
+                continue;
+            }
             var latLng = new google.maps.LatLng(value.lat, value.lng)
 
             bounds.extend(latLng)
@@ -112,12 +127,13 @@ CircleOverlay = function(latLng, size, text, mapObject) {
     this.size_ = size
     this.text_ = text
     this.setMap(mapObject)
+    this.circleSize_ = 40
 }
 
 CircleOverlay.prototype = new google.maps.OverlayView()
 
-CircleOverlay.prototype.setSizeCircle_ = function(width) {
-    var size = 40
+CircleOverlay.prototype.setSizeCircle_ = function() {
+    var size = this.circleSize_
 
     var $circle = this.circle_.circle
     var $outer = this.circle_.outer
@@ -182,6 +198,9 @@ CircleOverlay.prototype.onAdd = function() {
     this.circle_.circle.append(this.circle_.inner)
 
     this.circle_.circle.css('position', 'absolute')
+
+    this.setSizeCircle_()
+
     var panes = this.getPanes()
 
     var domCircle = this.circle_.circle.get(0)
@@ -197,14 +216,15 @@ CircleOverlay.prototype.onAdd = function() {
     google.maps.event.addDomListener(domCircle, 'mouseout', function() {
         google.maps.event.trigger(me, 'mouseout');
     });
+
 }
 
 CircleOverlay.prototype.draw = function() {
     var overlayProjection = this.getProjection()
     var pos = overlayProjection.fromLatLngToDivPixel(this.latLng_);
-    var width = Math.round(overlayProjection.getWorldWidth() / 1000)
+    //var width = Math.round(overlayProjection.getWorldWidth() / 1000)
 
-    width = this.setSizeCircle_(width) / 2
+    width = this.circleSize_ / 2
 
     var $circle = this.circle_.circle
     $circle.css('left', (pos.x - width) + 'px')

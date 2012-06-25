@@ -3,8 +3,7 @@ var map = {
     mc: null, // marker cluster
     geocoder: null,
     dragend: false, // callback called when a drag is performed on the map
-    infowindows: [],
-    windowIsOpen: false,
+    currWindow: false,
     addCountryMarker: function(country, obj) {
         var latLng = new google.maps.LatLng(obj.lat, obj.lng)
         var size = obj.numMissions
@@ -46,7 +45,7 @@ var map = {
 
                 var circle = new CircleOverlay(latLng, value.samples, value.samples, map.mapObject)
 
-                map.bindMouse(value.samples + ' missions', circle)
+                map.bindMouse('<h2>'+value.samples + ' missions</h2>', circle)
 
             }
             map.mapObject.fitBounds(bounds)
@@ -54,17 +53,14 @@ var map = {
 
     },
     bindMouse: function(content, circleOverlay) {
-        google.maps.event.addListener(circleOverlay, 'mouseout', function() {
-            map.windowIsOpen = false
-
-            // close the ones open
-            for(var i in map.infowindows) {
-                map.infowindows[i].close()
-            }
-        })
         google.maps.event.addListener(circleOverlay, 'mouseover', function() {
-            if(map.windowIsOpen) return;
-
+            if(map.currWindow && map.currWindow.getContent() == content) {
+                console.log(map.currWindow)
+                return;
+            }
+            if(map.currWindow && map.currWindow.getContent() != content) {
+                map.currWindow.close()
+            }
 
             var infowindow = new google.maps.InfoWindow({
                 content: content
@@ -72,8 +68,7 @@ var map = {
             infowindow.setPosition(circleOverlay.latLng_)
             infowindow.open(map.mapObject)
 
-            map.infowindows.push(infowindow)
-            map.windowIsOpen = true
+            map.currWindow = infowindow
         })
     },
     showMarkers: function(url, cb) {

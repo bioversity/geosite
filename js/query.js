@@ -60,6 +60,13 @@ var query = {
                 })
             }
         })
+        $('#heatmap').click(function(e) {
+            map.layer.setOptions({
+                heatmap: {
+                    enabled: $(this).attr('checked')
+                }
+            })
+        })
     },
     buildParams: function(key, group) {
         var params = {};

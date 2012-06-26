@@ -4,7 +4,7 @@ var map = {
     fusionTableId: '1BkkVW7dnbu2x87E_8vN9AZt8AGyytl5iTAyc8vk',
     init: function(country) {
         var myOptions = {
-            center: new google.maps.LatLng(0, 0),
+            center: new google.maps.LatLng(22.105998799750566, -58.0078125),
             zoom: 2,
             mapTypeId: google.maps.MapTypeId.TERRAIN,
             zoomControlOptions: {

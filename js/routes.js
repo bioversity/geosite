@@ -1,5 +1,6 @@
 var routes = {
     index: function(context) {
+        /*
         var country = this.params.country
         if(!country) {
             map.getRandomCountry(function(country) {
@@ -16,5 +17,6 @@ var routes = {
                 map.showMissions(data)
             }
         })
+        */
     }
 }

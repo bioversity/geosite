@@ -27,8 +27,9 @@ var map = {
         map.mapObject = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
 
-        google.maps.event.addListener(map.mapObject, 'click', function(event) {
-            map.geocoder.geocode( { 'location': event.latLng}, function(results, status) {
+        google.maps.event.addListener(map.mapObject, 'dragend', function() {
+            var center = map.mapObject.getCenter()
+            map.geocoder.geocode( { 'location': center }, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     var country = results[results.length - 1].formatted_address
                     window.location.hash = '/' + country
@@ -94,7 +95,8 @@ var map = {
             }
 
             var infowindow = new google.maps.InfoWindow({
-                content: content
+                content: content,
+                disableAutoPan: true
             })
             infowindow.setPosition(circleOverlay.latLng_)
             infowindow.open(map.mapObject)

@@ -49,15 +49,7 @@ var query = {
 
 
         $('#submit').click(function(e) {
-            /*
             query.buildQuery()
-            for(var i in query.urls) {
-                map.showMarkers(query.urls[i], function() {
-                    console.log('done')
-
-                })
-            }
-            */
         })
         $('#heatmap').click(function(e) {
             map.layer.setOptions({
@@ -125,7 +117,7 @@ var query = {
         return url
     },
     buildQuery: function() {
-        var groups = {}
+        var filters = []
         $('.query-group').each(function(){
             var $this = $(this)
             var children = $this.children()
@@ -133,17 +125,12 @@ var query = {
             key = children.eq(0).find('.dropdown-toggle span').text()
             value = children.eq(2).find('input').val()
             operator = children.eq(1).find('.dropdown-toggle span').text()
-
-            groups[key] = groups[key] || []
-            groups[key].push({
-                value: value,
-                operator: operator
-            })
+        
+            filters.push("'" + key + "' " + operator + " '" + value + "'")
 
         })
 
-
-        query.buildUrl(groups)
+        query.setWhere(filters.join(' AND '))
     },
 
     setWhere: function(where) {
@@ -187,6 +174,7 @@ var query = {
                             results.push(row[0]) 
                         }
                     }
+                    //console.log(results)
                     query.fieldNames[fieldName] = results
 
                     // Use the results to create the autocomplete options.

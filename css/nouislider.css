@@ -1,0 +1,44 @@
+.sliderbar				{
+	width:					300px;
+	border:					1px solid #CCC;
+	height:					8px;
+	border-radius:			4px;
+	background:				#EEE;
+}
+
+.noUi_handle    			{
+	height:					8px;
+	width:					8px;
+}
+
+.noUi_midBar			{
+	height:					8px;
+}
+
+.noUi_midBar			{
+	background:				#0074CC;
+    background-image: -ms-linear-gradient(top, #0088cc, #0055cc);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0055cc));
+    background-image: -webkit-linear-gradient(top, #0088cc, #0055cc);
+    background-image: -o-linear-gradient(top, #0088cc, #0055cc);
+    background-image: -moz-linear-gradient(top, #0088cc, #0055cc);
+    background-image: linear-gradient(top, #0088cc, #0055cc);
+}
+
+.noUi_sliderKnob		{
+	z-index: 				5;
+	width:					16px;
+	height:					16px;
+	position:				absolute;
+	top:					-5px;
+	left:					-5px;
+	border:					1px solid #CCC;
+	border-radius:			5px;
+	background:				#EEE;
+}
+
+.noUi_sliderKnob:hover,
+.noUi_activeHandle		{
+	background:				#adcbe1;
+	border-color:			#0074CC;
+}

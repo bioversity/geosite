@@ -16,6 +16,8 @@
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAgymWVxqul11-hNQpNvgjL1ZzQsq-d8WI&sensor=false">
     </script>
 
+    <script type="text/javascript" src="js/jquery.nouislider.min.js"></script>
+
     <script type="text/javascript" src="js/routes.js"></script>
     <script type="text/javascript" src="js/slide.js"></script>
     <script type="text/javascript" src="js/dropdown.js"></script>
@@ -26,6 +28,8 @@
 
     <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/nouislider.css" rel="stylesheet">
+
 
 <script>
 $(function() {
@@ -60,6 +64,15 @@ $(function() {
         <div id="content">
             <div class="control-group">
                 <label>Enable heatmap <input type="checkbox" id="heatmap"/></label>
+            </div>
+            <hr />
+            <div class="control-group">
+                <label>
+                    Date range 
+                    <br />
+                    <br />
+                    <div class="sliderbar"></div>
+                </label>
             </div>
             <hr />
             <div class="control-group">

@@ -33,5 +33,15 @@ var slide = {
 
             }
         })
+
+        var $sliderbar = $('.sliderbar')
+        $sliderbar.noUiSlider('init', {
+            scale: [0, 400],
+            tracker: function() {
+                var lower = $sliderbar.noUiSlider("getValue", {point: "lower"})
+                var upper = $sliderbar.noUiSlider("getValue", {point: "upper"})
+                console.log(lower, upper)
+            }
+        })
     }
 }

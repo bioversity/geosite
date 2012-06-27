@@ -144,5 +144,16 @@ var query = {
 
 
         query.buildUrl(groups)
+    },
+
+    setWhere: function(where) {
+        map.layer.setOptions({
+            query: {
+                select: '',
+                from: map.fusionTableId,
+                where: where
+            }
+        })
     }
+
 }

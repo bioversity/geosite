@@ -118,6 +118,10 @@ var query = {
     },
     buildQuery: function() {
         var filters = []
+
+        // check the range lower and upper
+        if(slide.filter) filters.push(slide.filter)
+
         $('.query-group').each(function(){
             var $this = $(this)
             var children = $this.children()
@@ -126,9 +130,12 @@ var query = {
             value = children.eq(2).find('input').val()
             operator = children.eq(1).find('.dropdown-toggle span').text()
         
-            filters.push("'" + key + "' " + operator + " '" + value + "'")
-
+            if(value) {
+                filters.push("'" + key + "' " + operator + " '" + value + "'")
+            }
         })
+
+        console.log(filters.join(' AND '))
 
         query.setWhere(filters.join(' AND '))
     },

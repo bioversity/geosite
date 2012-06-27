@@ -1,5 +1,9 @@
 var slide = {
     visible: true,
+    filter: null,
+    sliderbar: null, // the jquery elem
+    min: 0,
+    max: 0,
     init: function() {
         $('.slide').click(function() {
             if(slide.visible) { // hide
@@ -39,6 +43,10 @@ var slide = {
     },
     sliderbar: function(min, max) {
         var $sliderbar = $('.sliderbar')
+        slide.sliderbar = $sliderbar
+        slide.min = min
+        slide.max = max
+
         var $sliderbarValue = $('#sliderbar-value')
         setDate(min, max)
         $sliderbar.noUiSlider('init', {
@@ -57,12 +65,19 @@ var slide = {
                 var lower = Math.round($sliderbar.noUiSlider("getValue", {point: "lower"}))
                 var upper = Math.round($sliderbar.noUiSlider("getValue", {point: "upper"}))
 
-                query.setWhere("'COLLDATE' >= '" + lower + "' AND 'COLLDATE' <= '" + upper + "'")
+                slide.filter = "'COLLDATE' >= '" + lower + "' AND 'COLLDATE' <= '" + upper + "'"
+                query.buildQuery()
                 setDate(lower, upper)
             }
         })
         function setDate(lower, upper) {
             $sliderbarValue.html('<span class="badge badge-info">' + Math.round(lower) + '</span> - <span class="badge badge-important">' + Math.round(upper) + '</span>')
         }
+    },
+    sliderbarClear: function() {
+        slide.filter = null
+        slide.sliderbar.noUiSlider('move', {
+            setTo: [slide.min, slide.max]
+        })
     }
 }

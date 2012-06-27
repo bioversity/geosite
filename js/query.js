@@ -135,8 +135,6 @@ var query = {
             }
         })
 
-        console.log(filters.join(' AND '))
-
         query.setWhere(filters.join(' AND '))
     },
 

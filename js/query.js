@@ -21,6 +21,15 @@ var query = {
             var $remove = $this.clone()
             $remove.removeClass('add-query').addClass('remove-query').removeClass('btn-success').addClass('btn-danger').find('i').removeClass('icon-plus').addClass('icon-minus')
 
+            $remove.click(function(e) {
+                var $this = $(this)
+
+                $this.parent().parent().remove()
+
+                e.preventDefault()
+                e.stopPropagation()
+            })
+
             var $last = $clone.children().last()
             if($last.children().length === 1) {
                 $last.append($remove)
@@ -31,15 +40,6 @@ var query = {
             e.preventDefault()
             e.stopPropagation()
 
-        })
-
-        $('.remove-query').live('click', function(e) {
-            var $this = $(this)
-
-            $this.parent().parent().remove()
-
-            e.preventDefault()
-            e.stopPropagation()
         })
 
         var $drop = $('.query-dropdown')

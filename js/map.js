@@ -18,7 +18,7 @@ var map = {
         map.layer = new google.maps.FusionTablesLayer({
             query: {
                 select: '',
-                from: map.fusionTableId,
+                from: map.fusionTableId
             },
             map: map.mapObject
         })

@@ -74,6 +74,8 @@ h1 {
 }
 .btn-group {
     display: inline-block;
+    zoom: 1;
+    *display: inline;
 }
 .btn-group input {
     width: 100px;

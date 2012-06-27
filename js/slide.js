@@ -34,14 +34,34 @@ var slide = {
             }
         })
 
+        slide.sliderbar(1970, 2003)
+
+    },
+    sliderbar: function(min, max) {
         var $sliderbar = $('.sliderbar')
+        var $sliderbarValue = $('#sliderbar-value')
+        setDate(min, max)
         $sliderbar.noUiSlider('init', {
-            scale: [0, 400],
+            scale: [min, max],
+
+            startMin: min,
+            startMax: max,
+            
             tracker: function() {
                 var lower = $sliderbar.noUiSlider("getValue", {point: "lower"})
                 var upper = $sliderbar.noUiSlider("getValue", {point: "upper"})
-                console.log(lower, upper)
+
+                setDate(lower, upper)
+            },
+            change: function() {
+                var lower = $sliderbar.noUiSlider("getValue", {point: "lower"})
+                var upper = $sliderbar.noUiSlider("getValue", {point: "upper"})
+
+                setDate(lower, upper)
             }
         })
+        function setDate(lower, upper) {
+            $sliderbarValue.html('<span class="badge badge-info">' + Math.round(lower) + '</span> - <span class="badge badge-important">' + Math.round(upper) + '</span>')
+        }
     }
 }

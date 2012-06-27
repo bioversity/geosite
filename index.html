@@ -38,7 +38,7 @@ $(function() {
     slide.init()
     dropdown.init()
     query.init()
-    map.init()
+    //map.init()
     $('.dropdown-toggle').dropdown()
 
     var s = $.sammy(function() {
@@ -68,7 +68,7 @@ $(function() {
             <hr />
             <div class="control-group">
                 <label>
-                    Date range 
+                    Collection date range <span id='sliderbar-value'></span>
                     <br />
                     <br />
                     <div class="sliderbar"></div>
@@ -81,7 +81,7 @@ $(function() {
             <div class="control-group query-group">
                 <div class="btn-group">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span>COLLDATE</span>
+                        <span>Country_Name</span>
                         <span class="caret"></span>
                     </a>
                       <ul class="dropdown-menu query-dropdown">

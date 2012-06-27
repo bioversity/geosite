@@ -3,7 +3,6 @@ var query = {
     ddoc: '/_design/geosite',
     prio: {
         'Country_Name': true,
-        'COLLDATE': true,
         'Genus': true,
         'Species': true,
         'SAMPSTAT': true,

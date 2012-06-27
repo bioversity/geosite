@@ -54,17 +54,11 @@ var slide = {
                 setDate(lower, upper)
             },
             change: function() {
-                var lower = $sliderbar.noUiSlider("getValue", {point: "lower"})
-                var upper = $sliderbar.noUiSlider("getValue", {point: "upper"})
-
-                setDate(lower, upper)
-            },
-            knobRelease: function() {
                 var lower = Math.round($sliderbar.noUiSlider("getValue", {point: "lower"}))
                 var upper = Math.round($sliderbar.noUiSlider("getValue", {point: "upper"}))
 
-
                 query.setWhere("'COLLDATE' >= '" + lower + "' AND 'COLLDATE' <= '" + upper + "'")
+                setDate(lower, upper)
             }
         })
         function setDate(lower, upper) {

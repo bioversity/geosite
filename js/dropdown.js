@@ -7,11 +7,8 @@ var dropdown = {
             var $btngroup = $this.parent().parent().parent()
             $btngroup.find('.dropdown-toggle span:first-child').text(text)
 
-            query.buildQuery()
-
-        })
-        $('.query-group input').live('keyup', function(e) {
-            query.buildQuery()
+            var $typeahead = $btngroup.parent().find('.typeahead')
+            query.assignTypeahead(text, $typeahead)
         })
     }
 }   

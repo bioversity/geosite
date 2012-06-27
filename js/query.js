@@ -28,8 +28,6 @@ var query = {
 
             $clone.insertAfter($group)
 
-            query.buildQuery()
-
             e.preventDefault()
             e.stopPropagation()
 
@@ -40,17 +38,18 @@ var query = {
 
             $this.parent().parent().remove()
 
-            query.buildQuery()
-
             e.preventDefault()
             e.stopPropagation()
         })
+
         var $drop = $('.query-dropdown')
         for(var i in query.prio) {
             $drop.append('<li><a href="#">'+i+'</a></li>')
         }
 
+
         $('#submit').click(function(e) {
+            /*
             query.buildQuery()
             for(var i in query.urls) {
                 map.showMarkers(query.urls[i], function() {
@@ -58,6 +57,7 @@ var query = {
 
                 })
             }
+            */
         })
         $('#heatmap').click(function(e) {
             map.layer.setOptions({
@@ -154,6 +154,47 @@ var query = {
                 where: where
             }
         })
-    }
+    },
 
+    fieldNames: {},
+    assignTypeahead: function(fieldName, $elem) {
+        if(query.fieldNames[fieldName]) {
+            var source = query.fieldNames[fieldName]
+            $elem.typeahead({
+                source: source
+            })
+        } else { // contact the server
+            // Retrieve the unique store names using GROUP BY workaround.
+            var queryText = "SELECT '"+fieldName+"', COUNT() " +
+                'FROM ' + map.fusionTableId + " GROUP BY '"+fieldName+"'"
+            var encodedQuery = encodeURIComponent(queryText);
+
+            // Construct the URL
+            var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+            url.push('?sql=' + encodedQuery);
+            url.push('&key=AIzaSyAgymWVxqul11-hNQpNvgjL1ZzQsq-d8WI');
+            url.push('&callback=?');
+
+
+            $.ajax({
+                url: url.join(''),
+                dataType: 'jsonp',
+                success: function(data) {
+                    var results = []
+                    for(var i in data.rows) {
+                        var row = data.rows[i]
+                        if(row.length && row[0]) {
+                            results.push(row[0]) 
+                        }
+                    }
+                    query.fieldNames[fieldName] = results
+
+                    // Use the results to create the autocomplete options.
+                    $elem.typeahead({
+                        source: results
+                    })
+                }
+            })
+        }
+    }
 }

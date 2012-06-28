@@ -5,6 +5,7 @@ var query = {
         'Country_Name': true,
         'Genus': true,
         'Species': true,
+        'ScientificName': true,
         'SAMPSTAT': true,
         'ID_MISSION': true,
         'ID_SUB_MISSION': true

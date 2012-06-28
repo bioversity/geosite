@@ -8,7 +8,11 @@ var dropdown = {
             $btngroup.find('.dropdown-toggle span:first-child').text(text)
 
             var $typeahead = $btngroup.parent().find('.typeahead')
-            query.assignTypeahead(text, $typeahead)
+            var $typeclone = $typeahead.clone()
+            $typeclone.val('')
+            $typeahead.replaceWith($typeclone)
+            //$typeahead.data('typeahead', null)
+            query.assignTypeahead(text, $typeclone)
         })
     }
 }   

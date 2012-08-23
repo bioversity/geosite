@@ -172,7 +172,7 @@ var query = {
             // Construct the URL
             var url = ['https://www.googleapis.com/fusiontables/v1/query'];
             url.push('?sql=' + encodedQuery);
-            url.push('&key=AIzaSyAgymWVxqul11-hNQpNvgjL1ZzQsq-d8WI');
+            url.push('&key=' + map.key);
 
 
             $.getJSON('http://bioversity-cache.appspot.com/cache-url?callback=?', {
@@ -194,5 +194,28 @@ var query = {
                 })
             });
         }
+    },
+    runQuery: function(queryText, cb) {
+        var encodedQuery = encodeURIComponent(queryText);
+
+        // Construct the URL
+        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+        url.push('?sql=' + encodedQuery);
+        url.push('&key=' + map.key);
+        url.push('&callback=?')
+
+        $.getJSON(url.join(''), function(data) {
+            cb(data)
+        });
+    },
+    getInstitutes: function(instcode, cb) {
+        var instTable = '1g5rq1sLqXArypFIudfAXN1p5P0dMGfNmW7AwWD0'
+        var queryText = "SELECT 'ACRONYM', 'NAME_NAT' " +
+                "FROM " + instTable + " WHERE INSTCODE = '"+instcode+"'";
+
+        query.runQuery(queryText, function(data) {
+            cb(data)
+        })
+
     }
 }

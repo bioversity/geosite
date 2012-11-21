@@ -1,5 +1,6 @@
 var dropdown = {
     init: function() {
+        /*
         $('.btn-group .dropdown-menu li a').live('click', function(e) {
             var $this = $(this)
             var text = $this.text()
@@ -14,5 +15,6 @@ var dropdown = {
             //$typeahead.data('typeahead', null)
             query.assignTypeahead(text, $typeclone)
         })
+        */
     }
 }   

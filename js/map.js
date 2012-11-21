@@ -37,21 +37,26 @@ var map = {
                 pixelOffset: e.pixelOffset
             })
             infoWindow.open(map.mapObject)
-            
-            query.getInstitutes(row.INSTCODE.value, function(data) {
-                var content = e.infoWindowHtml
-                content += '<h3>Institutes</h3>'
-                if(data.rows) {
-                    for(var i in data.rows[0]) {
-                        content += '<b>' + data.columns[i] + ':</b> ' + data.rows[0][i] + '<br>'
+
+            console.log(row)
+            var instcode = row.INSTCODE.value.split(';')
+
+            for(var i in instcode) {
+                query.getInstitutes(instcode, function(data) {
+                    var content = e.infoWindowHtml
+                    content += '<h3>Institutes</h3>'
+                    if(data.rows) {
+                        for(var i in data.rows[0]) {
+                            content += '<b>' + data.columns[i] + ':</b> ' + data.rows[0][i] + '<br>'
+                        }
                     }
-                }
-                if(data.rows) {
-                    infoWindow.setOptions({
-                        content: content
-                    })
-                }
-            })
+                    if(data.rows) {
+                        infoWindow.setOptions({
+                            content: content
+                        })
+                    }
+                })
+            }
         })
     }
 }

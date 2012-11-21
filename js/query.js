@@ -12,6 +12,7 @@ var query = {
     },
     urls: [],
     init: function() {
+        /*
         $('.add-query').live('click', function(e) {
             var $this = $(this)
             var $group = $this.parent().parent()
@@ -53,7 +54,13 @@ var query = {
             $drop.append('<li><a href="#">'+i+'</a></li>')
         }
 
-        query.assignTypeahead($('.field-name').text(), $('.typeahead'))
+        */
+        
+        // typeahaed
+        $('.typeahead').each(function() {
+            var $this = $(this)
+            query.assignTypeahead($this.attr('placeholder'), $this)
+        })
 
         $('#submit').click(function(e) {
             query.buildQuery()
@@ -129,20 +136,22 @@ var query = {
         // check the range lower and upper
         if(slide.filter) filters.push(slide.filter)
 
-        $('.query-group').each(function(){
+        $('.typeahead').each(function(){
             var $this = $(this)
             var children = $this.children()
             var key, value, operator;
-            key = children.eq(0).find('.dropdown-toggle span').text()
-            value = children.eq(2).find('input').val()
-            operator = children.eq(1).find('.dropdown-toggle span').text()
+            key = $this.attr('placeholder')
+            value = $this.val()
+            operator = '=' // defaulting to = (not using < or >)
         
             if(value) {
                 filters.push("'" + key + "' " + operator + " '" + value + "'")
             }
         })
 
-        query.setWhere(filters.join(' AND '))
+        // using IN (OR isn't supported) instead of AND
+        var where = filters.join(' AND ')
+        query.setWhere(where)
     },
 
     setWhere: function(where) {

@@ -48,7 +48,7 @@ samples = {
                             where += ' AND ' + samplesWhere
                         }
                         if(where) {
-                            console.log(where)
+                            //console.log(where)
                             query.setWhere(where)
                         }
                     })
@@ -62,7 +62,7 @@ samples = {
                     where += ' AND ' + samplesWhere
                 }
                 if(where) {
-                    console.log(where)
+                    //console.log(where)
                     query.setWhere(where)
                 }
             })
@@ -74,7 +74,7 @@ samples = {
                         where += ' AND ' + samplesWhere
                     }
                     if(where) {
-                        console.log(where)
+                        //console.log(where)
                         query.setWhere(where)
                     }
                 })
@@ -82,7 +82,7 @@ samples = {
         } else {
             var where = samples.buildWhereSamples()
             if(where) {
-                console.log(where)
+                //console.log(where)
                 query.setWhere(where)
             }
         }

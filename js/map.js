@@ -38,7 +38,7 @@ var map = {
             })
             infoWindow.open(map.mapObject)
 
-            console.log(row)
+            //console.log(row)
             var instcode = row.INSTCODE.value.split(';')
 
             for(var i in instcode) {

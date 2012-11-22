@@ -1,3 +1,18 @@
+/*
+TABLES:
+https://www.google.com/fusiontables/DataSource?docid=12PyyTcPiqFqSw0VYy-nzVDs4ziMQnOgpInFTw-o
+https://www.google.com/fusiontables/DataSource?docid=1IevrMRdq9ZmQt10Oa8IaPJ2-wfheZkuXhzOvFTs
+https://www.google.com/fusiontables/DataSource?docid=1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE
+https://www.google.com/fusiontables/DataSource?docid=1_5eJCH58ImSCuqddaNNnCfII4EOFoKxT6IUlGMY
+https://www.google.com/fusiontables/DataSource?docid=1yxw_17Lxds9hq3kwJTj-O4smnPOnuZfUjpCJ4a4
+https://www.google.com/fusiontables/DataSource?docid=1g5rq1sLqXArypFIudfAXN1p5P0dMGfNmW7AwWD0
+https://www.google.com/fusiontables/DataSource?docid=1bnG9YSgZJBItygxK5XgPq9MJPw1bpooGHy2tmGg
+https://www.google.com/fusiontables/DataSource?docid=1wk_SgC5_qS8eZleVawsKWmfM_Wn2C4Gc1Nvhpgg
+https://www.google.com/fusiontables/DataSource?docid=13k5H9qSRevZesV7OMStdmJRdVyjpuQemnFT6XWo
+https://www.google.com/fusiontables/DataSource?docid=1e7Ndw0djwWaDYnqo7BMYWLw7zElTKC9-Jc227yQ
+https://www.google.com/fusiontables/DataSource?docid=1NRN1z_xmDdy5XRuCfhWehz01H4MUHf39KWIEhgM
+https://www.google.com/fusiontables/DataSource?docid=1r06Y-Z2pRSGM1tOPdz15TbD8bGnvvkiI0I07_qw
+*/
 var query = {
     couch: 'http://192.168.20.251:5984/geosite',
     ddoc: '/_design/geosite',
@@ -59,7 +74,7 @@ var query = {
         // typeahaed
         $('.typeahead').each(function() {
             var $this = $(this)
-            query.assignTypeahead($this.attr('placeholder'), $this)
+            query.assignTypeahead($this)
         })
 
         $('#submit').click(function(e) {
@@ -131,27 +146,12 @@ var query = {
         return url
     },
     buildQuery: function() {
-        var filters = []
+        var selectedGroup = 'samples'
 
-        // check the range lower and upper
-        if(slide.filter) filters.push(slide.filter)
+        if(selectedGroup == 'samples') {
+            samples.submit()
+        }
 
-        $('.typeahead').each(function(){
-            var $this = $(this)
-            var children = $this.children()
-            var key, value, operator;
-            key = $this.attr('placeholder')
-            value = $this.val()
-            operator = '=' // defaulting to = (not using < or >)
-        
-            if(value) {
-                filters.push("'" + key + "' " + operator + " '" + value + "'")
-            }
-        })
-
-        // using IN (OR isn't supported) instead of AND
-        var where = filters.join(' AND ')
-        query.setWhere(where)
     },
 
     setWhere: function(where) {
@@ -165,16 +165,20 @@ var query = {
     },
 
     fieldNames: {},
-    assignTypeahead: function(fieldName, $elem) {
-        if(query.fieldNames[fieldName]) {
-            var source = query.fieldNames[fieldName]
+    assignTypeahead: function($elem) {
+        var fieldName = $elem.attr('placeholder')
+        var fusionTableId = $elem.attr('fusionTableId')
+        if(!fusionTableId) return;
+
+        if(query.fieldNames[fieldName + fusionTableId]) {
+            var source = query.fieldNames[fieldName + fusionTableId]
             $elem.typeahead({
                 source: source
             })
         } else { // contact the server
             // Retrieve the unique store names using GROUP BY workaround.
             var queryText = "SELECT '"+fieldName+"', COUNT() " +
-                'FROM ' + map.fusionTableId + " GROUP BY '"+fieldName+"'"
+                'FROM ' + fusionTableId + " GROUP BY '"+fieldName+"'"
 
             var encodedQuery = encodeURIComponent(queryText);
 
@@ -182,7 +186,6 @@ var query = {
             var url = ['https://www.googleapis.com/fusiontables/v1/query'];
             url.push('?sql=' + encodedQuery);
             url.push('&key=' + map.key);
-
 
             $.getJSON('http://bioversity-cache.appspot.com/cache-url?callback=?', {
                 url: url.join('') 
@@ -195,7 +198,7 @@ var query = {
                     }
                 }
                 //console.log(results)
-                query.fieldNames[fieldName] = results
+                query.fieldNames[fieldName + fusionTableId] = results
 
                 // Use the results to create the autocomplete options.
                 $elem.typeahead({

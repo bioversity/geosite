@@ -155,6 +155,7 @@ var query = {
     },
 
     setWhere: function(where) {
+        console.log(where)
         map.layer.setOptions({
             query: {
                 select: '',
@@ -229,5 +230,15 @@ var query = {
             cb(data)
         })
 
+    },
+    load: function(on) {
+        var $submit = $('#submit')
+        if(on) {
+            $submit.attr('disabled', true)
+            $submit.val('Loading...')
+        } else {
+            $submit.attr('disabled', false)
+            $submit.val('Submit')
+        }
     }
 }

@@ -35,6 +35,7 @@ samples = {
         var coopQuery = "SELECT ID_COOPERATOR " +
                 "FROM " + samples.coopTable + " WHERE " + coopFilters.join(' AND ');
 
+        query.load(true)
         if(instFilters.length && coopFilters.length) { // both institutes and cooperators filled
             query.runQuery(instQuery, function(data) { // first inst
                 var w = samples.buildWhereInst(data)
@@ -51,6 +52,7 @@ samples = {
                             //console.log(where)
                             query.setWhere(where)
                         }
+                        query.load(false)
                     })
                 })
             })
@@ -65,6 +67,7 @@ samples = {
                     //console.log(where)
                     query.setWhere(where)
                 }
+                query.load(false)
             })
         } else if(coopFilters.length) { // only coop fields were filled
             query.runQuery(coopQuery, function(data) {
@@ -77,6 +80,7 @@ samples = {
                         //console.log(where)
                         query.setWhere(where)
                     }
+                    query.load(false)
                 })
             })
         } else {
@@ -85,6 +89,7 @@ samples = {
                 //console.log(where)
                 query.setWhere(where)
             }
+            query.load(false)
         }
 
     },

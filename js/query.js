@@ -146,11 +146,11 @@ var query = {
         return url
     },
     buildQuery: function() {
-        var selectedGroup = 'samples'
+        var selectedGroup = $('.control-group .dropdown-toggle').text()
 
-        if(selectedGroup == 'missions') {
+        if(selectedGroup == 'Collecting Missions') {
             missions.submit()
-        } else if(selectedGroup == 'samples') {
+        } else if(selectedGroup == 'Collecting Samples') {
             samples.submit()
         }
 

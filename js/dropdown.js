@@ -8,11 +8,7 @@ var dropdown = {
             $btngroup.find('.dropdown-toggle span:first-child').text(text)
 
             $('.query-group').hide()
-            if(text == 'Collecting Missions') {
-                $('.query-group.missions').show() 
-            } else if(text == 'Collecting Samples') {
-                $('.query-group.samples').show() 
-            }
+            $('.query-group.' + $this.attr('group')).show()
         })
     }
 }   

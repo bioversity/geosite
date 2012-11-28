@@ -152,6 +152,8 @@ var query = {
             missions.submit()
         } else if(selectedGroup == 'Collecting Samples') {
             samples.submit()
+        } else if(selectedGroup == 'Linked Accessions') {
+            accessions.submit()
         }
 
     },

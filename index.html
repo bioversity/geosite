@@ -26,6 +26,7 @@
     <script type="text/javascript" src="js/map.js?v3"></script>
     <script type="text/javascript" src="js/missions.js?v3"></script>
     <script type="text/javascript" src="js/samples.js?v3"></script>
+    <script type="text/javascript" src="js/accessions.js?v3"></script>
     
     <!--<link rel="shortcut icon" href="favicon.png">-->
 
@@ -82,7 +83,7 @@ $(function() {
                   <ul class="dropdown-menu">
                         <li><a href="#" group="missions">Collecting Missions</a></li>
                         <li><a href="#" group="samples">Collecting Samples</a></li>
-                        <li><a href="#">Linked Accessions</a></li>
+                        <li><a href="#" group="accessions">Linked Accessions</a></li>
                         <li><a href="#">Trait Queries</a></li>
                   </ul>
                 </div>
@@ -123,6 +124,11 @@ $(function() {
                     <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Admin2" class="typeahead" />
                     <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Admin3" class="typeahead" />
                     <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="COLLSITE" class="typeahead" />
+                </div>
+            </div> <!-- /samples -->
+            <div class="control-group query-group accessions" style="display: none">
+                <div groupName="accessions">
+                    <input type="text" placeholder="AccessionNumber" class="typeahead" />
                 </div>
             </div> <!-- /samples -->
             <!--

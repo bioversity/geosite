@@ -24,6 +24,7 @@
     <script type="text/javascript" src="js/dropdown.js?v2"></script>
     <script type="text/javascript" src="js/query.js?v2"></script>
     <script type="text/javascript" src="js/map.js?v2"></script>
+    <script type="text/javascript" src="js/missions.js?v2"></script>
     <script type="text/javascript" src="js/samples.js?v2"></script>
     
     <!--<link rel="shortcut icon" href="favicon.png">-->
@@ -35,11 +36,10 @@
 
 <script>
 $(function() {
-
-
     slide.init()
     query.init()
     map.init()
+    dropdown.init()
     $('.dropdown-toggle').dropdown()
 
     var s = $.sammy(function() {
@@ -77,36 +77,18 @@ $(function() {
             </div>
             <hr />
             <div class="control-group">
-                <label>Collecting Missions:</label>
+                <div class="btn-group">
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Collecting Missions</span></button>
+                  <ul class="dropdown-menu">
+                        <li><a href="#">Collecting Missions</a></li>
+                        <li><a href="#">Collecting Samples</a></li>
+                        <li><a href="#">Linked Accessions</a></li>
+                        <li><a href="#">Trait Queries</a></li>
+                  </ul>
+                </div>
             </div>
-            <div class="control-group query-group">
-                <!--
-                <div class="btn-group">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class='field-name'>Country_Name</span>
-                        <span class="caret"></span>
-                    </a>
-                      <ul class="dropdown-menu query-dropdown">
-                      </ul>
-                </div>
-                <div class="btn-group">
-                  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>=</span></button>
-                      <ul class="dropdown-menu">
-                            <li><a href="#">=</a></li>
-                            <li><a href="#">&gt;</a></li>
-                            <li><a href="#">&lt;</a></li>
-                      </ul>
-                </div>
-                <div class="btn-group">
-                    <input type="text" placeholder="1986" class="typeahead" />
-                </div>
-                <div class="btn-group add-row">
-                    <button class="btn btn-success add-query" href="#">
-                        <i class="icon-plus icon-white"></i>
-                    </button>
-                </div>
-                -->
-                <div groupName="samples">
+            <div class="control-group query-group missions">
+                <div groupName="missions">
                     <input type="text" fusionTableId="13k5H9qSRevZesV7OMStdmJRdVyjpuQemnFT6XWo" placeholder="ID_MISSION" class="typeahead" />
                     <input type="text" fusionTableId="13k5H9qSRevZesV7OMStdmJRdVyjpuQemnFT6XWo" placeholder="ID_SUB_MISSION" class="typeahead" />
                     <input type="text" fusionTableId="13k5H9qSRevZesV7OMStdmJRdVyjpuQemnFT6XWo" placeholder="Title" class="typeahead" />
@@ -126,7 +108,23 @@ $(function() {
                     <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Firstname" class="typeahead" />
                     <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Surname" class="typeahead" />
                 </div>
-            </div>
+            </div> <!-- /missions -->
+            <div class="control-group query-group samples" style="display: none">
+                <div groupName="samples">
+                    <input type="text" placeholder="Collecting_Number" class="typeahead" />
+                    <input type="text" placeholder="COLLDATE" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="ScientificName" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Genus" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Species" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Speciestype" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Samplestatus_text" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Collectingsource_text" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Admin1" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Admin2" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Admin3" class="typeahead" />
+                    <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="COLLSITE" class="typeahead" />
+                </div>
+            </div> <!-- /samples -->
             <!--
             <div class="control-group">
                 <label>Linked Accessions:</label>

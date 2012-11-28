@@ -148,7 +148,9 @@ var query = {
     buildQuery: function() {
         var selectedGroup = 'samples'
 
-        if(selectedGroup == 'samples') {
+        if(selectedGroup == 'missions') {
+            missions.submit()
+        } else if(selectedGroup == 'samples') {
             samples.submit()
         }
 

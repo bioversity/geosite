@@ -174,6 +174,7 @@ var query = {
         var fieldName = $elem.attr('placeholder')
         var fusionTableId = $elem.attr('fusionTableId')
         if(!fusionTableId) return;
+        console.log($elem)
 
         if(query.fieldNames[fieldName + fusionTableId]) {
             var source = query.fieldNames[fieldName + fusionTableId]

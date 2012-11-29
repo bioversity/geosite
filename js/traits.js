@@ -102,6 +102,8 @@ traits = {
         var value = $traitFilter.find('input[type=text]').eq(1).val()
 
         var traitQuery = 'SELECT ID_SAMPLE FROM '+ currTableId + ' WHERE \''+key+'\' = \''+value+'\'';
+
+        query.load(true)
         query.runQuery(traitQuery, function(data) {
             var id_samples = []
             for(var i in data.rows) {
@@ -109,6 +111,7 @@ traits = {
             }
 
             query.setWhere('ID_SAMPLE IN (' + id_samples.join(',') + ')')
+            query.load(false)
         })
     }
 }

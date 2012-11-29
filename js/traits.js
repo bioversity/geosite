@@ -23,17 +23,17 @@ traits = {
         if(domCache) {
             $traitFilter.find('.' + crop).show()
         } else {
-            var $traitInput = $('<input type="text" class="typeahead" placeholder="ex: plant height" style="width: 100px"/>')
-            var $traitValue = $('<input type="text" class="typeahead" placeholder="ex: 10cm" style="width: 100px" />')
+            var $traitInput = $('<input type="text" class="typeahead" placeholder="ex: Flesh color" style="width: 100px"/>')
+            var $traitValue = $('<input type="text" class="typeahead" placeholder="ex: Orange" style="width: 100px" />')
 
             $traitValue.focus(function() {
                 // get the values based on the $traitInput trait
                 var $this = $(this)
-                setTimeout(function() { 
+                traits.getTraitValues(crop, $traitInput.val(), function(data) {
                     $this.typeahead({
-                        source: ['ciao']
+                        source: data
                     })
-                }, 5000)
+                })
             })
 
             traits.getTraits(crop, function(cropTraits) {
@@ -54,6 +54,19 @@ traits = {
             traits.cache['dom' + crop] = true
         }
     },
+    getTraitValues: function(crop, trait, cb) {
+        if(!trait) return;
+        // XXX escape the trait variable
+        var q = 'SELECT \'' + trait + '\', COUNT() FROM ' + traits.tables[crop] + ' GROUP BY \'' + trait + "'";
+        query.runQuery(q, function(data) {
+            var traitValues = []
+            for(var i in data.rows) {
+                var t = data.rows[i][0]
+                if(t) traitValues.push(t)
+            }
+            cb(traitValues)
+        })
+    },
     getTraits: function(crop, cb) {
         query.getColumns(traits.tables[crop], function(data) {
             var t = []
@@ -72,5 +85,19 @@ traits = {
 
     },
     submit: function() {
+        var currTableId = traits.tables[$('.traits select').val()]
+        var $traitFilter = $('.traitFilter')
+        var key = $traitFilter.find('input[type=text]').eq(0).val()
+        var value = $traitFilter.find('input[type=text]').eq(1).val()
+
+        var traitQuery = 'SELECT ID_SAMPLE FROM '+ currTableId + ' WHERE \''+key+'\' = \''+value+'\'';
+        query.runQuery(traitQuery, function(data) {
+            var id_samples = []
+            for(var i in data.rows) {
+                id_samples.push("'" + data.rows[i][0] + "'")
+            }
+
+            query.setWhere('ID_SAMPLE IN (' + id_samples.join(',') + ')')
+        })
     }
 }

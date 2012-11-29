@@ -30,13 +30,17 @@ traits = {
             var $traitInput = $('<input type="text" class="typeahead" placeholder="ex: Flesh color" style="width: 100px"/>')
             var $traitValue = $('<input type="text" class="typeahead" placeholder="ex: Orange" style="width: 100px" />')
 
+            $traitInput.change(function() {
+                $traitValue.val('')
+            })
+
             $traitValue.focus(function() {
                 // get the values based on the $traitInput trait
                 var $this = $(this)
                 var autocomplete = $this.typeahead({ minLength: 0 })
                 $this.typeahead.bind($this, 'lookup')()
                 traits.getTraitValues(crop, $traitInput.val(), function(data) {
-                    //console.log(data)
+                    console.log(data)
                     autocomplete.data('typeahead').source = data
                     $this.typeahead.bind($this, 'lookup')()
                 })
@@ -92,11 +96,12 @@ traits = {
     },
     submit: function() {
         var currTableId = traits.tables[$('.traits select').val()]
-        var $traitFilter = $('.traitFilter')
+        var $traitFilter = $('.traitFilter div:visible')
         var key = $traitFilter.find('input[type=text]').eq(0).val()
         var value = $traitFilter.find('input[type=text]').eq(1).val()
 
         var traitQuery = 'SELECT ID_SAMPLE FROM '+ currTableId + ' WHERE \''+key+'\' = \''+value+'\'';
+        console.log(traitQuery)
         query.runQuery(traitQuery, function(data) {
             var id_samples = []
             for(var i in data.rows) {

@@ -81,7 +81,8 @@
 
       this.query = this.$element.val()
 
-      if (!this.query || this.query.length < this.options.minLength) {
+      if (typeof this.query !== 'string' || this.query.length < this.options.minLength) {
+      
         return this.shown ? this.hide() : this
       }
 

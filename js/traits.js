@@ -33,15 +33,12 @@ traits = {
             $traitValue.focus(function() {
                 // get the values based on the $traitInput trait
                 var $this = $(this)
+                var autocomplete = $this.typeahead({ minLength: 0 })
+                $this.typeahead.bind($this, 'lookup')()
                 traits.getTraitValues(crop, $traitInput.val(), function(data) {
-                    var autocomplete = $this.typeahead()
-                    if(!autocomplete) {
-                        $this.typeahead({
-                            source: data
-                        })
-                    } else {
-                        autocomplete.data('typeahead').source = data
-                    }
+                    //console.log(data)
+                    autocomplete.data('typeahead').source = data
+                    $this.typeahead.bind($this, 'lookup')()
                 })
             })
 

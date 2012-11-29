@@ -161,7 +161,7 @@ var query = {
     },
 
     setWhere: function(where) {
-        console.log(where)
+        //console.log(where)
         map.layer.setOptions({
             query: {
                 select: '',

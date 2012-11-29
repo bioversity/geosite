@@ -11,10 +11,7 @@
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="js/sammy-latest.min.js"></script>
-    <script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAgymWVxqul11-hNQpNvgjL1ZzQsq-d8WI&sensor=false">
-    </script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAgymWVxqul11-hNQpNvgjL1ZzQsq-d8WI&sensor=false"></script>
     <script type="text/javascript" src="js/bootstrap-typeahead.js"></script>
 
     <script type="text/javascript" src="js/jquery.nouislider.min.js"></script>
@@ -31,7 +28,7 @@
     
     <!--<link rel="shortcut icon" href="favicon.png">-->
 
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href="css/nouislider.css" rel="stylesheet">
 
@@ -44,12 +41,6 @@ $(function() {
     dropdown.init()
     traits.init()
     $('.dropdown-toggle').dropdown()
-
-    var s = $.sammy(function() {
-        this.get('#/', routes.index) 
-        this.get('#/:country', routes.index) 
-    })
-    s.run()
 })
 </script>
 

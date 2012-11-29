@@ -1,7 +1,11 @@
 traits = {
     tables: {
         Musa: '1e7Ndw0djwWaDYnqo7BMYWLw7zElTKC9-Jc227yQ',
-        Ipomoea: '1bnG9YSgZJBItygxK5XgPq9MJPw1bpooGHy2tmGg'
+        Ipomoea: '1bnG9YSgZJBItygxK5XgPq9MJPw1bpooGHy2tmGg',
+        Dioscorea: '1_5eJCH58ImSCuqddaNNnCfII4EOFoKxT6IUlGMY',
+        Manihot: '1wk_SgC5_qS8eZleVawsKWmfM_Wn2C4Gc1Nvhpgg',
+        Pennisetum: '1NRN1z_xmDdy5XRuCfhWehz01H4MUHf39KWIEhgM',
+        Sorghum: '1r06Y-Z2pRSGM1tOPdz15TbD8bGnvvkiI0I07_qw'
     },
     cache: {},
     init: function() {
@@ -30,9 +34,14 @@ traits = {
                 // get the values based on the $traitInput trait
                 var $this = $(this)
                 traits.getTraitValues(crop, $traitInput.val(), function(data) {
-                    $this.typeahead({
-                        source: data
-                    })
+                    var autocomplete = $this.typeahead()
+                    if(!autocomplete) {
+                        $this.typeahead({
+                            source: data
+                        })
+                    } else {
+                        autocomplete.data('typeahead').source = data
+                    }
                 })
             })
 

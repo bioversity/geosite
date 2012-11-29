@@ -19,14 +19,15 @@
 
     <script type="text/javascript" src="js/jquery.nouislider.min.js"></script>
 
-    <script type="text/javascript" src="js/routes.js?v3"></script>
-    <script type="text/javascript" src="js/slide.js?v3"></script>
-    <script type="text/javascript" src="js/dropdown.js?v3"></script>
-    <script type="text/javascript" src="js/query.js?v3"></script>
-    <script type="text/javascript" src="js/map.js?v3"></script>
-    <script type="text/javascript" src="js/missions.js?v3"></script>
-    <script type="text/javascript" src="js/samples.js?v3"></script>
-    <script type="text/javascript" src="js/accessions.js?v3"></script>
+    <script type="text/javascript" src="js/routes.js?v5"></script>
+    <script type="text/javascript" src="js/slide.js?v5"></script>
+    <script type="text/javascript" src="js/dropdown.js?v5"></script>
+    <script type="text/javascript" src="js/query.js?v5"></script>
+    <script type="text/javascript" src="js/map.js?v5"></script>
+    <script type="text/javascript" src="js/missions.js?v5"></script>
+    <script type="text/javascript" src="js/samples.js?v5"></script>
+    <script type="text/javascript" src="js/accessions.js?v5"></script>
+    <script type="text/javascript" src="js/traits.js?v5"></script>
     
     <!--<link rel="shortcut icon" href="favicon.png">-->
 
@@ -41,6 +42,7 @@ $(function() {
     query.init()
     map.init()
     dropdown.init()
+    traits.init()
     $('.dropdown-toggle').dropdown()
 
     var s = $.sammy(function() {
@@ -80,18 +82,29 @@ $(function() {
             <div class="control-group">
                 Select a different search category by clicking here: 
                 <div class="btn-group">
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Collecting Missions</span></button>
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Trait Queries</span></button>
                   <ul class="dropdown-menu">
                         <li><a href="#" group="missions">Collecting Missions</a></li>
                         <li><a href="#" group="samples">Collecting Samples</a></li>
                         <li><a href="#" group="accessions">Linked Accessions</a></li>
-                        <li><a href="#">Trait Queries</a></li>
+                        <li><a href="#" group="traits">Trait Queries</a></li>
                   </ul>
                 </div>
                 <br>
                 Once you've filled out these fields, click on SUBMIT on the bottom
             </div>
-            <div class="control-group query-group missions">
+            <hr />
+            <div class="control-group query-group traits">
+                <div groupName="traits">
+                    Select crop:
+                    <select style="width: 150px">
+                    </select>
+                    <div class="traitFilter">
+                    </div>
+
+                </div>
+            </div> <!-- /traits -->
+            <div class="control-group query-group missions" style="display: none">
                 <div groupName="missions">
                     <input type="text" fusionTableId="13k5H9qSRevZesV7OMStdmJRdVyjpuQemnFT6XWo" placeholder="ID_MISSION" class="typeahead" />
                     <input type="text" fusionTableId="13k5H9qSRevZesV7OMStdmJRdVyjpuQemnFT6XWo" placeholder="ID_SUB_MISSION" class="typeahead" />
@@ -133,7 +146,7 @@ $(function() {
                 <div groupName="accessions">
                     <input type="text" placeholder="AccessionNumber" class="typeahead" />
                 </div>
-            </div> <!-- /samples -->
+            </div> <!-- /accessions -->
             <!--
             <div class="control-group">
                 <label>Linked Accessions:</label>

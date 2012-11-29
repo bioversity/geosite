@@ -154,6 +154,8 @@ var query = {
             samples.submit()
         } else if(selectedGroup == 'Linked Accessions') {
             accessions.submit()
+        } else if(selectedGroup == 'Trait Queries') {
+            traits.submit()
         }
 
     },
@@ -174,7 +176,6 @@ var query = {
         var fieldName = $elem.attr('placeholder')
         var fusionTableId = $elem.attr('fusionTableId')
         if(!fusionTableId) return;
-        console.log($elem)
 
         if(query.fieldNames[fieldName + fusionTableId]) {
             var source = query.fieldNames[fieldName + fusionTableId]
@@ -223,6 +224,11 @@ var query = {
         url.push('&callback=?')
 
         $.getJSON(url.join(''), function(data) {
+            cb(data)
+        });
+    },
+    getColumns: function(tableId, cb) {
+        $.getJSON('https://www.googleapis.com/fusiontables/v1/tables/' + tableId + '/columns?key='+map.key+'&callback=?', function(data) {
             cb(data)
         });
     },

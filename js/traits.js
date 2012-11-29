@@ -17,17 +17,17 @@ traits = {
     },
     assignTypeahead: function(crop) {
         var $traitFilter = $('.traitFilter')
+        $traitFilter.find('div.filter').hide()
         // cache the DOM html
-        var htmlCache = traits.cache['html' + crop]
-        if(htmlCache) {
-            $traitFilter.html(htmlCache)
+        var domCache = traits.cache['dom' + crop]
+        if(domCache) {
+            $traitFilter.find('.' + crop).show()
         } else {
             var $traitInput = $('<input type="text" class="typeahead" placeholder="ex: plant height" style="width: 100px"/>')
             var $traitValue = $('<input type="text" class="typeahead" placeholder="ex: 10cm" style="width: 100px" />')
 
             $traitValue.focus(function() {
                 // get the values based on the $traitInput trait
-                // XXX CACHE IT
                 var $this = $(this)
                 setTimeout(function() { 
                     $this.typeahead({
@@ -41,6 +41,17 @@ traits = {
                     source: cropTraits
                 })
             })
+
+            var $div = $('<div class="filter '+crop+'"></div>')
+
+            $div.append($traitInput)
+            $div.append(' = ')
+            $div.append($traitValue)
+
+            $traitFilter.append($div)
+
+            // add it to cache
+            traits.cache['dom' + crop] = true
         }
     },
     getTraits: function(crop, cb) {

@@ -40,7 +40,7 @@ traits = {
                 var autocomplete = $this.typeahead({ minLength: 0 })
                 $this.typeahead.bind($this, 'lookup')()
                 traits.getTraitValues(crop, $traitInput.val(), function(data) {
-                    console.log(data)
+                    //console.log(data)
                     autocomplete.data('typeahead').source = data
                     $this.typeahead.bind($this, 'lookup')()
                 })
@@ -101,7 +101,6 @@ traits = {
         var value = $traitFilter.find('input[type=text]').eq(1).val()
 
         var traitQuery = 'SELECT ID_SAMPLE FROM '+ currTableId + ' WHERE \''+key+'\' = \''+value+'\'';
-        console.log(traitQuery)
         query.runQuery(traitQuery, function(data) {
             var id_samples = []
             for(var i in data.rows) {

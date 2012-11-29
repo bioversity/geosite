@@ -16,6 +16,8 @@
 
     <script type="text/javascript" src="js/jquery.nouislider.min.js"></script>
 
+    <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+
     <script type="text/javascript" src="js/routes.js?v7"></script>
     <script type="text/javascript" src="js/slide.js?v7"></script>
     <script type="text/javascript" src="js/dropdown.js?v7"></script>
@@ -41,6 +43,8 @@ $(function() {
     dropdown.init()
     traits.init()
     $('.dropdown-toggle').dropdown()
+
+    $('input, textarea').placeholder();
 })
 </script>
 

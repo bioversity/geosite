@@ -9,7 +9,7 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no">
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAgymWVxqul11-hNQpNvgjL1ZzQsq-d8WI&sensor=false"></script>
     <script type="text/javascript" src="js/bootstrap-typeahead.js"></script>
@@ -36,10 +36,34 @@
 
 
 <script>
+if (!Function.prototype.bind) {
+  Function.prototype.bind = function (oThis) {
+    if (typeof this !== "function") {
+      // closest thing possible to the ECMAScript 5 internal IsCallable function
+      throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+    }
+ 
+    var aArgs = Array.prototype.slice.call(arguments, 1), 
+        fToBind = this, 
+        fNOP = function () {},
+        fBound = function () {
+          return fToBind.apply(this instanceof fNOP && oThis
+                                 ? this
+                                 : oThis,
+                               aArgs.concat(Array.prototype.slice.call(arguments)));
+        };
+ 
+    fNOP.prototype = this.prototype;
+    fBound.prototype = new fNOP();
+ 
+    return fBound;
+  };
+}
+
 $(function() {
+    map.init()
     slide.init()
     query.init()
-    map.init()
     dropdown.init()
     traits.init()
     $('.dropdown-toggle').dropdown()
@@ -79,10 +103,10 @@ $(function() {
                 <div class="btn-group">
                     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Trait Queries</span></button>
                   <ul class="dropdown-menu">
+                        <li><a href="#" group="traits">Trait Queries</a></li>
                         <li><a href="#" group="missions">Collecting Missions</a></li>
                         <li><a href="#" group="samples">Collecting Samples</a></li>
                         <li><a href="#" group="accessions">Linked Accessions</a></li>
-                        <li><a href="#" group="traits">Trait Queries</a></li>
                   </ul>
                 </div>
                 <br>

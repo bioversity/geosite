@@ -82,7 +82,7 @@ $(function() {
         </h1>
         <p class="tag">Data from Bioversity's missions</p>
         <p class="alert-message" id="tagline">
-            Access to sample level information with enhanced passport data for about 130,000 samples collected around the world during IBPGR/IPGRI supported missions.
+            Access to sample level information with enhanced passport data for about 150,000 samples collected around the world during IBPGR/IPGRI supported missions.
         </p>
         <div id="content">
             <div class="control-group">
@@ -99,21 +99,22 @@ $(function() {
             </div>
             <hr />
             <div class="control-group">
-                Select a different search category by clicking here: 
+                Choose a search category 
+                <br>
                 <div class="btn-group">
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Trait Queries</span></button>
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Collected Samples</span></button>
                   <ul class="dropdown-menu">
-                        <li><a href="#" group="traits">Trait Queries</a></li>
+                        <li><a href="#" group="traits">Queries</a></li>
                         <li><a href="#" group="missions">Collecting Missions</a></li>
-                        <li><a href="#" group="samples">Collecting Samples</a></li>
+                        <li><a href="#" group="samples">Collected Samples</a></li>
                         <li><a href="#" group="accessions">Linked Accessions</a></li>
                   </ul>
                 </div>
                 <br>
-                Once you've filled out these fields, click on SUBMIT on the bottom
+                Once you've filled out the fields, click on SUBMIT on the bottom of this page
             </div>
             <hr />
-            <div class="control-group query-group traits">
+            <div class="control-group query-group traits" style="display: none">
                 <div groupName="traits">
                     Select crop:
                     <select style="width: 150px">
@@ -145,7 +146,7 @@ $(function() {
                     <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Surname" class="typeahead" />
                 </div>
             </div> <!-- /missions -->
-            <div class="control-group query-group samples" style="display: none">
+            <div class="control-group query-group samples" style="">
                 <div groupName="samples">
                     <input type="text" placeholder="Collecting_Number" class="typeahead" />
                     <input type="text" placeholder="COLLDATE" class="typeahead" />

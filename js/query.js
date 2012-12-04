@@ -150,11 +150,11 @@ var query = {
 
         if(selectedGroup == 'Collecting Missions') {
             missions.submit()
-        } else if(selectedGroup == 'Collecting Samples') {
+        } else if(selectedGroup == 'Collected Samples') {
             samples.submit()
         } else if(selectedGroup == 'Linked Accessions') {
             accessions.submit()
-        } else if(selectedGroup == 'Trait Queries') {
+        } else if(selectedGroup == 'Queries') {
             traits.submit()
         }
 

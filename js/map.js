@@ -27,9 +27,10 @@ var map = {
         })
         var infoWindow = new google.maps.InfoWindow()
 
-
         // this runs whenever we click on a red dot
         google.maps.event.addListener(map.layer, 'click', function(e) {
+            infowindow.click(infoWindow, e)
+            /*
             var row = e.row
             infoWindow.setOptions({
                 content: e.infoWindowHtml,
@@ -37,8 +38,10 @@ var map = {
                 pixelOffset: e.pixelOffset
             })
             infoWindow.open(map.mapObject)
+            */
 
             //console.log(row)
+            /*
             var instcode = row.INSTCODE.value.split(';')
 
             for(var i in instcode) {
@@ -57,6 +60,7 @@ var map = {
                     }
                 })
             }
+            */
         })
     }
 }

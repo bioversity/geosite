@@ -18,15 +18,16 @@
 
     <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
 
-    <script type="text/javascript" src="js/routes.js?v8"></script>
-    <script type="text/javascript" src="js/slide.js?v8"></script>
-    <script type="text/javascript" src="js/dropdown.js?v8"></script>
-    <script type="text/javascript" src="js/query.js?v8"></script>
-    <script type="text/javascript" src="js/map.js?v8"></script>
-    <script type="text/javascript" src="js/missions.js?v8"></script>
-    <script type="text/javascript" src="js/samples.js?v8"></script>
-    <script type="text/javascript" src="js/accessions.js?v8"></script>
-    <script type="text/javascript" src="js/traits.js?v8"></script>
+    <script type="text/javascript" src="js/routes.js?v9"></script>
+    <script type="text/javascript" src="js/slide.js?v9"></script>
+    <script type="text/javascript" src="js/dropdown.js?v9"></script>
+    <script type="text/javascript" src="js/query.js?v9"></script>
+    <script type="text/javascript" src="js/map.js?v9"></script>
+    <script type="text/javascript" src="js/missions.js?v9"></script>
+    <script type="text/javascript" src="js/samples.js?v9"></script>
+    <script type="text/javascript" src="js/accessions.js?v9"></script>
+    <script type="text/javascript" src="js/traits.js?v9"></script>
+    <script type="text/javascript" src="js/infowindow.js?v9"></script>
     
     <!--<link rel="shortcut icon" href="favicon.png">-->
 
@@ -178,9 +179,15 @@ $(function() {
             <div class="form-actions">
                 <input class="btn btn-primary submit-query" name="commit" type="submit" id="submit" value="Submit">
             </div>
+            <div class="control-group downlaod-csv">
+            </div>
             <div class="control-group">
-                <label>Current API calls</label>
-                <div class="api-calls"></div>
+                Don't forget to add your Google Fusion <span class="label label-important">API key</span>. More info on <a href="https://developers.google.com/fusiontables/docs/v1/using#APIKey">this page</a>.
+                <label>Current API call:</label>
+                <div class="alert api-calls">
+                    No query performed yet
+                </div>
+                
             </div>
 
         </div>

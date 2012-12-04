@@ -161,14 +161,33 @@ var query = {
     },
 
     setWhere: function(where) {
-        //console.log(where)
+        var q = {
+            select: '',
+            from: map.fusionTableId,
+            where: where
+        }
+        var queryText = 'SELECT * FROM ' + map.fusionTableId + ' WHERE ' + where;
+        query.setApiCall(queryText)
         map.layer.setOptions({
-            query: {
-                select: '',
-                from: map.fusionTableId,
-                where: where
-            }
+            query: q
         })
+    },
+    setApiCall: function(queryText) {
+        var encodedQuery = encodeURIComponent(queryText);
+
+        // Construct the URL
+        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+        url.push('?sql=' + encodedQuery);
+        var apiUrl = url.join('')
+
+        query.createDownloadCsv(url)
+        $('.api-calls').html('<a href="'+apiUrl+'">'+apiUrl+'</a>')
+
+    },
+    createDownloadCsv: function(url) {
+        url.push('&key=' + map.key)
+        url.push('&alt=csv')
+        $('.downlaod-csv').html('<a href="'+url.join('')+'" class="btn btn-success">Download CSV</button>')
     },
 
     fieldNames: {},

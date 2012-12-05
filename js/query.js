@@ -154,7 +154,7 @@ var query = {
             samples.submit()
         } else if(selectedGroup == 'Linked Accessions') {
             accessions.submit()
-        } else if(selectedGroup == 'Queries') {
+        } else if(selectedGroup == 'Traits') {
             traits.submit()
         }
 

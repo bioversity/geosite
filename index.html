@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no">
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAgymWVxqul11-hNQpNvgjL1ZzQsq-d8WI&sensor=false"></script>
+    <script type="text/javascript" src="js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="js/bootstrap-typeahead.js"></script>
 
     <script type="text/javascript" src="js/jquery.nouislider.min.js"></script>
@@ -100,19 +100,22 @@ $(function() {
             </div>
             <hr />
             <div class="control-group">
-                Choose a search category 
+                Choose a query by clicking here: 
                 <br>
                 <div class="btn-group">
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Collected Samples</span></button>
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span>Queries</span></button>
                   <ul class="dropdown-menu">
-                        <li><a href="#" group="traits">Queries</a></li>
-                        <li><a href="#" group="missions">Collecting Missions</a></li>
                         <li><a href="#" group="samples">Collected Samples</a></li>
+                        <li><a href="#" group="missions">Collecting Missions</a></li>
                         <li><a href="#" group="accessions">Linked Accessions</a></li>
+                        <li><a href="#" group="traits">Traits</a></li>
                   </ul>
                 </div>
                 <br>
-                Once you've filled out the fields, click on SUBMIT on the bottom of this page
+                <br>
+                When the search mask appears, fill in your search criteria and then click on the <b>Submit Query</b> button at the bottom of this page.
+                <br><br>
+                After you've submitted the query, a <b>Download CSV</b> button will appear at the bottom, enabling you to download all the samples resulting from your query, including those which are not geo-referenced and are not visible on the map.
             </div>
             <hr />
             <div class="control-group query-group traits" style="display: none">
@@ -147,7 +150,7 @@ $(function() {
                     <input type="text" fusionTableId="1o-UvQHmOzovOgsYMlYpDD3kj0YDd8BBePhwcANE" placeholder="Surname" class="typeahead" />
                 </div>
             </div> <!-- /missions -->
-            <div class="control-group query-group samples" style="">
+            <div class="control-group query-group samples" style="display: none">
                 <div groupName="samples">
                     <input type="text" placeholder="Collecting_Number" class="typeahead" />
                     <input type="text" placeholder="COLLDATE" class="typeahead" />
@@ -177,13 +180,14 @@ $(function() {
             </div>
             -->
             <div class="form-actions">
-                <input class="btn btn-primary submit-query" name="commit" type="submit" id="submit" value="Submit">
+                <input class="btn btn-primary submit-query" name="commit" type="submit" id="submit" value="Submit Query">
             </div>
             <div class="control-group downlaod-csv">
             </div>
+            <hr />
             <div class="control-group">
-                Don't forget to add your Google Fusion <span class="label label-important">API key</span>. More info on <a href="https://developers.google.com/fusiontables/docs/v1/using#APIKey">this page</a>.
-                <label>Current API call:</label>
+                <label>Don't forget to add your Google Fusion <span class="label label-important">API key</span>. More info on <a href="https://developers.google.com/fusiontables/docs/v1/using#APIKey">this page</a>.</label>
+
                 <div class="alert api-calls">
                     No query performed yet
                 </div>

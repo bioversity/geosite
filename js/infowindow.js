@@ -16,10 +16,20 @@ infowindow = {
         return form;
         
     },
+    makePILinks: function(html) {
+        var reg = /PI [\d]+/g
+        if(html.match(reg)) {
+            html = html.replace(reg, function(PI) {
+                return '<a href="http://www.ars-grin.gov/cgi-bin/npgs/acc/search.pl?accid='+PI+'">'+PI+'</a>'
+            })
+        }
+        return html
+    },
     click: function(iw, e) {
         var row = e.row
         var html = infowindow.pdfLink(row.ID_MISSION.value)
         html += e.infoWindowHtml
+        html = infowindow.makePILinks(html)
         iw.setOptions({
             content: html,
             position: e.latLng,

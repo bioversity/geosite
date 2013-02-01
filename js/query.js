@@ -169,11 +169,19 @@ var query = {
         if(tableId) {
             q.from = tableId
         }
-        var queryText = 'SELECT * FROM ' + map.fusionTableId + ' WHERE ' + where;
+        var queryText = 'SELECT * FROM ' +q.from + ' WHERE ' + where;
         query.setApiCall(queryText)
+
         map.layer.setOptions({
             query: q
         })
+
+        // just run the the same COUNT(*) query to simply understand the amount
+        /*
+        query.runQuery('SELECT COUNT() FROM ' + q.from + ' WHERE ' + where, function(data) {
+            console.log(data)
+        })
+        */
     },
     setApiCall: function(queryText) {
         var encodedQuery = encodeURIComponent(queryText);
@@ -184,7 +192,7 @@ var query = {
         var apiUrl = url.join('')
 
         query.createDownloadCsv(url)
-        $('.api-calls').html('<a href="'+apiUrl+'">'+apiUrl+'</a>')
+        $('.api-calls').html('<a target="_blank" href="'+apiUrl+'">'+apiUrl+'</a>')
 
     },
     createDownloadCsv: function(url) {

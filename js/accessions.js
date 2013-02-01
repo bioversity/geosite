@@ -1,6 +1,6 @@
 accessions = {
     accTable: '12PyyTcPiqFqSw0VYy-nzVDs4ziMQnOgpInFTw-o',
-    mergeOfAccessionsAndMissionsSamples: '12EteeAoMAdcKq7NTClncBaDxXEOdKA4gf3w2neY',
+    mergeOfAccessionsAndMissionsSamples: '1QknvlptH6ens5-NZyzgSZc_5TlqaHpeT9ppXtEo',
     submit: function() {
         // do first the institutes
         var instFilters = []

@@ -160,11 +160,14 @@ var query = {
 
     },
 
-    setWhere: function(where) {
+    setWhere: function(where, tableId) {
         var q = {
             select: '',
             from: map.fusionTableId,
             where: where
+        }
+        if(tableId) {
+            q.from = tableId
         }
         var queryText = 'SELECT * FROM ' + map.fusionTableId + ' WHERE ' + where;
         query.setApiCall(queryText)

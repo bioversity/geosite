@@ -38,7 +38,7 @@ var slide = {
             }
         })
 
-        slide.sliderbar(1970, 2003)
+        slide.sliderbar(1970, 2012)
 
     },
     sliderbar: function(min, max) {

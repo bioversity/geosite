@@ -1,8 +1,10 @@
 accessions = {
     accTable: '12PyyTcPiqFqSw0VYy-nzVDs4ziMQnOgpInFTw-o',
+    mergeOfAccessionsAndMissionsSamples: '12EteeAoMAdcKq7NTClncBaDxXEOdKA4gf3w2neY',
     submit: function() {
-        var accFilters = []
-        $('div[groupName=accessions] input').each(function() {
+        // do first the institutes
+        var instFilters = []
+        $('div[groupName=institutes] input').each(function() {
             var $this = $(this)
             var key, value, operator;
             key = $this.attr('placeholder')
@@ -10,33 +12,48 @@ accessions = {
             operator = '=' // defaulting to = (not using < or >)
         
             if(value) {
-                accFilters.push("'" + key + "' " + operator + " '" + value + "'")
+                instFilters.push("'" + key + "' " + operator + " '" + value + "'")
             }
+
         })
-        var accQuery = "SELECT ID_SAMPLE " +
-                "FROM " + accessions.accTable + " WHERE " + accFilters.join(' AND ');
+        var instQuery = "SELECT INSTCODE " +
+                "FROM " + missions.instTable + " WHERE " + instFilters.join(' AND ');
 
-        if(accFilters.length) {
+        if(instFilters.length) {
             query.load(true)
-            query.runQuery(accQuery, function(data) { 
-                var idSamples = []
-                for(var i in data.rows) {
-                    var id_sample = data.rows[i][0]
-                    idSamples.push("'" + id_sample + "'")
+            query.runQuery(instQuery, function(data) { 
+                if(!data.rows.length) {
+                    query.load(false)
+                    return;
                 }
 
-                if(idSamples.length) {
-                    query.setWhere("ID_SAMPLE IN (" + idSamples.join(',') + ")")
-                }
+                var instcodes = missions.buildWhereInst(data)
+                runAccessionQuery([instcodes])
                 query.load(false)
             })
+            
+
         }
-        /*
-        var where = filters.join(' AND ')
-        if(where) {
-            //console.log(where)
-            query.setWhere(where)
+
+        function runAccessionQuery(filters) {
+
+            $('div[groupName=accessions] input').each(function() {
+                var $this = $(this)
+                var key, value, operator;
+                key = $this.attr('placeholder')
+                value = $this.val()
+                operator = '=' // defaulting to = (not using < or >)
+            
+                if(value) {
+                    filters.push("'" + key + "' " + operator + " '" + value + "'")
+                }
+            })
+
+            var where =  filters.join(' AND ');
+
+            if(filters.length) {
+                query.setWhere(where, accessions.mergeOfAccessionsAndMissionsSamples)
+            }
         }
-        */
     }
 }

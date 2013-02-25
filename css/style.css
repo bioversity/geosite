@@ -15,41 +15,72 @@
 }
 .sidebar h1 {
     padding-bottom:20px;
+    padding-left: 120px;
 }
 input {
     /*width: 100%;*/
 }
+.badge-info {
+background-color: #163D70;
+}
+.badge-important {
+background-color: #429538;
+}
+.btn-primary {
+background-color: #163D70;
+background-image: -moz-linear-gradient(top, #0088cc, #163D70);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#163D70));
+background-image: -webkit-linear-gradient(top, #0088cc, #163D70);
+background-image: -o-linear-gradient(top, #0088cc, #163D70);
+background-image: linear-gradient(to bottom, #0088cc, #163D70);
+    
+}
+.btn-primary:hover {
+    background-color: #163D70;
+}
+.dropdown-menu li > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a {
+    background-color: #163D70;
+background-image: -moz-linear-gradient(top, #0088cc, #163D70);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#163D70));
+background-image: -webkit-linear-gradient(top, #0088cc, #163D70);
+background-image: -o-linear-gradient(top, #0088cc, #163D70);
+background-image: linear-gradient(to bottom, #0088cc, #163D70);
+}
+.label-important {
+    background-color: #429538;
+}
+
 .sidebar p#tagline {
     margin-bottom:20px;
 color: 
 white;
 background-color: 
-#C43C35;
+#429538;
 background-repeat: repeat-x;
 background-image: -khtml-gradient(linear, left top, left bottom, from(
-#EE5F5B), to(
-#C43C35));
+#429538), to(
+#429538));
 background-image: -moz-linear-gradient(top, 
-#EE5F5B, 
-#C43C35);
+#429538, 
+#429538);
 background-image: -ms-linear-gradient(top, 
-#EE5F5B, 
-#C43C35);
+#429538, 
+#429538);
 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, 
-#EE5F5B), color-stop(100%, 
-#C43C35));
+#429538), color-stop(100%, 
+#429538));
 background-image: -webkit-linear-gradient(top, 
-#EE5F5B, 
-#C43C35);
+#429538, 
+#429538);
 background-image: -o-linear-gradient(top, 
-#EE5F5B, 
-#C43C35);
+#429538, 
+#429538);
 background-image: linear-gradient(top, 
-#EE5F5B, 
-#C43C35);
+#429538, 
+#429538);
 border-color: 
-#C43C35 
-#C43C35 
+#429538 
+#429538 
 #882A25;
 border-color: 
 rgba(0, 0, 0, 0.1) 
@@ -90,9 +121,10 @@ float: left;
     text-align: center;
 }
 #logos {
-    float: right;
-    margin-top: 30px;
-    margin-right: 20px;
+float: left;
+margin-top: 30px;
+margin-left: 25px;
+
 }
 .submit-query {
     width: 100% !important;
@@ -224,7 +256,7 @@ div.inner-circle {
     /* Specify the background and
     width and height */
  
-    background:#C43C35;
+    background:#429538;
     width:96px;
     height:96px;
  

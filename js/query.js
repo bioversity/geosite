@@ -184,8 +184,7 @@ var query = {
                     $modal.find('.content').html('You\'re about to download <b>'+ rlength+'</b> rows of data. Click Download to get this data.');
 
                     url.push('&alt=csv');
-                    //$modal.find('.download-modal').prop('href', url.join(''));
-                    $modal.find('.download-modal').prop('href', 'data:application/csv;charset=utf-8,Col1%2CCol2%2CCol3%0AVal1%2CVal2%2CVal3%0AVal11%2CVal22%2CVal33%0AVal111%2CVal222%2CVal333');
+                    $modal.find('.download-modal').prop('href', url.join(''));
                     $modal.find('.close-modal').click(function(e) {
                         $modal.hide();
 

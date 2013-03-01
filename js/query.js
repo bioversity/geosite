@@ -198,7 +198,7 @@ var query = {
     createDownloadCsv: function(url) {
         url.push('&key=' + map.key)
         url.push('&alt=csv')
-        $('.downlaod-csv').html('<a href="'+url.join('')+'" class="btn btn-success">Download CSV</button>')
+        $('.downlaod-csv').html('<a target="_blank" href="'+url.join('')+'" class="btn btn-success">Download CSV</button>')
     },
 
     fieldNames: {},

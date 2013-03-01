@@ -205,7 +205,7 @@ var query = {
         // this is for CSV
         
         var text = 'Download CSV';
-        var $a = $('<a target="_blank" href="#" class="btn btn-success">' + text + '</button>');
+        var $a = $('<a target="_blank" href="#" class="btn btn-success">' + text + '</a>');
 
         $('.downlaod-csv').html($a);
 

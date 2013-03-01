@@ -181,7 +181,7 @@ var query = {
                 if(rlength) {
                     var $modal = $('.modal');
                     $modal.show();
-                    $modal.find('.content').text('You\'re about to download <b>'+ rlength+'</b> rows of data. Click OK to download.');
+                    $modal.find('.content').html('You\'re about to download <b>'+ rlength+'</b> rows of data. Click Download to get this data.');
 
                     url.push('&alt=csv');
                     $modal.find('.download-modal').prop('href', url.join(''));

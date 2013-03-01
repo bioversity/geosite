@@ -27,49 +27,9 @@ var query = {
     },
     urls: [],
     init: function() {
-        /*
-        $('.add-query').live('click', function(e) {
-            var $this = $(this)
-            var $group = $this.parent().parent()
-
-            var $clone = $group.clone()
-
-
-            var $remove = $this.clone()
-            $remove.removeClass('add-query').addClass('remove-query').removeClass('btn-success').addClass('btn-danger').find('i').removeClass('icon-plus').addClass('icon-minus')
-
-            $remove.click(function(e) {
-                var $this = $(this)
-
-                $this.parent().parent().remove()
-
-                e.preventDefault()
-                e.stopPropagation()
-            })
-
-            var $last = $clone.children().last()
-            if($last.children().length === 1) {
-                $last.append($remove)
-            }
-
-            var fieldName = $clone.find('.field-name').text()
-            var $typeahead = $clone.find('.typeahead')
-
-            query.assignTypeahead(fieldName, $typeahead)
-
-            $clone.insertAfter($group)
-
-            e.preventDefault()
-            e.stopPropagation()
-
-        })
-
-        var $drop = $('.query-dropdown')
-        for(var i in query.prio) {
-            $drop.append('<li><a href="#">'+i+'</a></li>')
-        }
-
-        */
+        $('input[type=text]').each(function() {
+            $(this).val('');
+        });
         
         // typeahaed
         $('.typeahead').each(function() {
@@ -220,13 +180,11 @@ var query = {
 
                 if(rlength) {
                     if(confirm('You\'re about to download '+ rlength+' rows of data. Click OK to download.')) {
-                        console.log('ok');
                         $btn.removeClass('disabled').text(text);
 
                         url.push('&alt=csv');
                         window.open(url.join(''));
                     } else {
-                        console.log('cancel');
                         $btn.removeClass('disabled').text(text);
                     }
                 } else {

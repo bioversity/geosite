@@ -151,11 +151,11 @@ var query = {
         url.push('?sql=' + encodedQuery);
         var apiUrl = url.join('')
 
-        query.createDownloadCsv(url)
+        query.createDownloadCsv(url, encodedQuery)
         $('.api-calls').html('<a target="_blank" href="'+apiUrl+'">'+apiUrl+'</a>')
 
     },
-    createDownloadCsv: function(url) {
+    createDownloadCsv: function(url, encodedQuery) {
         url.push('&key=' + map.key);
         var url2 = url.slice(0);
         // this is for JSON
@@ -184,7 +184,8 @@ var query = {
                     $modal.find('.content').html('You\'re about to download <b>'+ rlength+'</b> rows of data. Click Download to get this data.');
 
                     url.push('&alt=csv');
-                    $modal.find('.download-modal').prop('href', url.join(''));
+                    //$modal.find('.download-modal').prop('href', url.join(''));
+                    $modal.find('.download-modal').prop('href', 'https://www.google.com/fusiontables/exporttable?query=' + encodedQuery);
                     $modal.find('.close-modal').click(function(e) {
                         $modal.hide();
 

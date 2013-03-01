@@ -179,14 +179,19 @@ var query = {
                 var rlength = data.rows ? data.rows.length : false;
 
                 if(rlength) {
-                    if(confirm('You\'re about to download '+ rlength+' rows of data. Click OK to download.')) {
-                        $btn.removeClass('disabled').text(text);
+                    var $modal = $('.modal');
+                    $modal.show();
+                    $modal.find('.content').text('You\'re about to download <b>'+ rlength+'</b> rows of data. Click OK to download.');
 
-                        url.push('&alt=csv');
-                        window.open(url.join(''));
-                    } else {
-                        $btn.removeClass('disabled').text(text);
-                    }
+                    url.push('&alt=csv');
+                    $modal.find('.download-modal').prop('href', url.join(''));
+                    $modal.find('.close-modal').click(function(e) {
+                        $modal.hide();
+
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
+                    $btn.removeClass('disabled').text(text);
                 } else {
                     alert('No data to download!');
                     $btn.removeClass('disabled').text(text);

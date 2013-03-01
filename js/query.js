@@ -196,9 +196,48 @@ var query = {
 
     },
     createDownloadCsv: function(url) {
-        url.push('&key=' + map.key)
-        url.push('&alt=csv')
-        $('.downlaod-csv').html('<a target="_blank" href="'+url.join('')+'" class="btn btn-success">Download CSV</button>')
+        url.push('&key=' + map.key);
+        var url2 = url.slice(0);
+        // this is for JSON
+        /*
+        */
+
+        // this is for CSV
+        
+        var text = 'Download CSV';
+        var $a = $('<a target="_blank" href="#" class="btn btn-success">' + text + '</button>');
+
+        $('.downlaod-csv').html($a);
+
+        $a.click(function(e) {
+            var $btn = $(this);
+            $btn.addClass('disabled').text('Downloading...');
+
+            url2.push('&callback=?');
+            $.getJSON(url2.join(''), function(data) {
+                
+                var rlength = data.rows ? data.rows.length : false;
+
+                if(rlength) {
+                    if(confirm('You\'re about to download '+ rlength+' rows of data. Click OK to download.')) {
+                        console.log('ok');
+                        $btn.removeClass('disabled').text(text);
+
+                        url.push('&alt=csv');
+                        window.open(url.join(''));
+                    } else {
+                        console.log('cancel');
+                        $btn.removeClass('disabled').text(text);
+                    }
+                } else {
+                    alert('No data to download!');
+                    $btn.removeClass('disabled').text(text);
+                }
+            })
+
+            e.stopPropagation();
+            e.preventDefault();
+        });
     },
 
     fieldNames: {},

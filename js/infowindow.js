@@ -23,6 +23,12 @@ infowindow = {
                 return '<a href="http://www.ars-grin.gov/cgi-bin/npgs/acc/search.pl?accid='+PI+'">'+PI+'</a>'
             })
         }
+        if(html.match(/CN [\d]+/g)) {
+            html = html.replace(reg, function(CN) {
+                return '<a href="http://pgrc3.agr.gc.ca/cgi-bin/npgs/html/acc_search.pl?accid='+CN+'">'+CN+'</a>'
+            }) 
+            
+        }
         return html
     },
     click: function(iw, e) {

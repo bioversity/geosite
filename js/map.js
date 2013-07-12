@@ -2,7 +2,7 @@ var map = {
     mapObject: null,
     layer: null,
     key: 'AIzaSyAgymWVxqul11-hNQpNvgjL1ZzQsq-d8WI',
-    fusionTableId: '19V-3m1F3dVvksLwgnI3RjIPBUEqY0EZ4XxRkmxw',
+    fusionTableId: '1sfPdnErQ8ZubgZaHEa7FrYmsp63VELha6JERUj8',
     init: function(country) {
         var myOptions = {
             center: new google.maps.LatLng(22.105998799750566, -58.0078125),

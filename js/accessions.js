@@ -1,5 +1,5 @@
 accessions = {
-    accTable: '12PyyTcPiqFqSw0VYy-nzVDs4ziMQnOgpInFTw-o',
+    accTable: '1T3qJ47z2Q1gFI8QRNXz5XDMfToySKEFkVcTrVlc',
     mergeOfAccessionsAndMissionsSamples: '1QknvlptH6ens5-NZyzgSZc_5TlqaHpeT9ppXtEo',
     submit: function() {
         // do first the institutes

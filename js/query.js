@@ -48,16 +48,18 @@ var query = {
             })
         })
     },
-    checkHash: function() {
-        var hash = window.location.hash;
-        var idMission = hash.split('/')[0];
-        idMission = idMission.replace(/#/g, '');
+    getURLParameter: function(name) {
+        return decodeURI(
+                (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+        );
+    },
+    checkParameter: function() {
+        var missionId = this.getURLParameter('missionId'); 
             
-        $('.btn.btn-primary.dropdown-toggle').text('Collecting Missions');
-
-        if(idMission) {
+        if(missionId) {
+            $('.btn.btn-primary.dropdown-toggle').text('Collecting Missions');
             $('.query-group.missions').show();
-            $('[placeholder="ID_MISSION"]').val(idMission);
+            $('[placeholder="ID_MISSION"]').val(missionId);
             $("#submit").click();
         }
     },

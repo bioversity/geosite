@@ -55,8 +55,9 @@ var query = {
     },
     checkParameter: function() {
         var missionId = this.getURLParameter('missionId'); 
+        alert(missionId);
             
-        if(missionId) {
+        if(missionId && missionId != "null") {
             $('.btn.btn-primary.dropdown-toggle').text('Collecting Missions');
             $('.query-group.missions').show();
             $('[placeholder="ID_MISSION"]').val(missionId);

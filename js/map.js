@@ -22,7 +22,12 @@ var map = {
                 from: map.fusionTableId
             },
             map: map.mapObject,
-            suppressInfoWindows: true
+            suppressInfoWindows: true,
+            options: {
+                styleId: 2,
+                templateId: 2
+
+            }
             
         })
         var infoWindow = new google.maps.InfoWindow()

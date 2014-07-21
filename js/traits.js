@@ -110,7 +110,7 @@ traits = {
                 id_samples.push("'" + data.rows[i][0] + "'")
             }
 
-            query.setWhere('ID_SAMPLE IN (' + id_samples.join(',') + ')')
+            query.setWhere('NEW_ID_SAMPLE IN (' + id_samples.join(',') + ')')
             query.load(false)
         })
     }

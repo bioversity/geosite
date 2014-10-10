@@ -16,7 +16,8 @@ JavaScript is used on the site to filter and retrieve data through AJAX call usi
 
 The structure of the code is quite simple. Inside `index.html` there's a section that initializes all the various components used on the site:
 
-  $(function() {
+```
+$(function() {
     map.init()
     slide.init()
     query.init()
@@ -25,6 +26,7 @@ The structure of the code is quite simple. Inside `index.html` there's a section
     $('.dropdown-toggle').dropdown()
     $('input, textarea').placeholder();
     query.checkParameter();
-  })
+})
+```
   
-Each of those components such as `map`, `slice`, etc. has it's own file such as `js/map.js` and `js/slide.js`. By looking at the `init()` methods within each module one can easily understand what's going on.
+Each of those components such as `map`, `slice`, etc. has it's own file such as `js/map.js` and `js/slide.js`. By looking at the `init()` methods within each module one can understand the functionality of a given module.

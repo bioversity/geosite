@@ -9,7 +9,7 @@ infowindow = {
                    color: #ff3333; \
                 }\
               </style>\
-                  <img src="http://www.central-repository.cgiar.org/alfresco/images/filetypes/pdf.gif" style="vertical-align:middle;"/><input class="pdf-link" type="submit" value="View pdf files test for this mission" style="background: none repeat scroll 0% 0% transparent; border: 0pt none; cursor: pointer; color: #336699;"/>\
+                  <img src="http://www.central-repository.cgiar.org/alfresco/images/filetypes/pdf.gif" style="vertical-align:middle;"/><input class="pdf-link" type="submit" value="View pdf files for this mission" style="background: none repeat scroll 0% 0% transparent; border: 0pt none; cursor: pointer; color: #336699;"/>\
               </div>\
           </form></div>';
 

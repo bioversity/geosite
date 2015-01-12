@@ -15,11 +15,23 @@ var map = {
             panControl: false
         };
         map.mapObject = new google.maps.Map(document.getElementById("map_canvas"), myOptions)
-
+        
+        var queryInit = "";
+        if (Boolean(get['ID_MISSION'])){
+            var queryInit = "'ID_MISSION'='"+get['ID_MISSION']+"'";
+        }
+        if (Boolean(get['ID_SUB_MISSION'])){
+            var queryInit = "'ID_SUB_MISSION'='"+get['ID_SUB_MISSION']+"'";
+        }
+        if (Boolean(get['NEW_ID_SAMPLE'])){
+            var queryInit = "'NEW_ID_SAMPLE'='"+get['NEW_ID_SAMPLE']+"'";
+        }
+        
         map.layer = new google.maps.FusionTablesLayer({
             query: {
                 select: '',
-                from: map.fusionTableId
+                from: map.fusionTableId,
+                where: queryInit
             },
             map: map.mapObject,
             suppressInfoWindows: true,

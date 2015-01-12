@@ -31,11 +31,35 @@ infowindow = {
         }
         return html
     },
+    makeID_MISSIONLinks: function(html, missionId) {
+        var reg = "<b>ID_MISSION:<\/b> "+missionId+"<br>"
+        if(html.match(reg)) {
+            html = html.replace(reg,'<b>ID_MISSION:<\/b> <a href="index.html?ID_MISSION='+missionId+'">'+missionId+'</a><br>')
+        }
+        return html
+    },
+    makeID_SUB_MISSIONLinks: function(html, submissionId) {
+        var reg = "<b>ID_SUB_MISSION:<\/b> "+submissionId+"<br>"
+        if(html.match(reg)) {
+            html = html.replace(reg,'<b>ID_SUB_MISSION:<\/b> <a href="index.html?ID_SUB_MISSION='+submissionId+'">'+submissionId+'</a><br>')
+        }
+        return html
+    },
+    makeNEW_ID_SAMPLELinks: function(html, newIdsample) {
+        var reg = "<b>NEW_ID_SAMPLE:<\/b> "+newIdsample+"<br>"
+        if(html.match(reg)) {
+            html = html.replace(reg,'<b>NEW_ID_SAMPLE:<\/b> <a href="index.html?NEW_ID_SAMPLE='+newIdsample+'">'+newIdsample+'</a><br>')
+        }
+        return html
+    },
     click: function(iw, e) {
         var row = e.row
         var html = infowindow.pdfLink(row.ID_MISSION.value)
         html += e.infoWindowHtml
         html = infowindow.makePILinks(html)
+        html = infowindow.makeID_MISSIONLinks(html, row.ID_MISSION.value)
+        html = infowindow.makeID_SUB_MISSIONLinks(html, row.ID_SUB_MISSION.value)
+        html = infowindow.makeNEW_ID_SAMPLELinks(html, row.NEW_ID_SAMPLE.value)
         iw.setOptions({
             content: html,
             position: e.latLng,

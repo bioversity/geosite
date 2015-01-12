@@ -13,6 +13,11 @@ https://www.google.com/fusiontables/DataSource?docid=1e7Ndw0djwWaDYnqo7BMYWLw7zE
 https://www.google.com/fusiontables/DataSource?docid=1NRN1z_xmDdy5XRuCfhWehz01H4MUHf39KWIEhgM
 https://www.google.com/fusiontables/DataSource?docid=1r06Y-Z2pRSGM1tOPdz15TbD8bGnvvkiI0I07_qw
 */
+var get = [];
+location.search.replace('?', '').split('&').forEach(function (val) {
+    split = val.split("=", 2);
+    get[split[0]] = split[1];
+});
 var query = {
     couch: 'http://192.168.20.251:5984/geosite',
     ddoc: '/_design/geosite',

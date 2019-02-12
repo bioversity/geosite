@@ -152,7 +152,7 @@ var query = {
         var queryText = 'SELECT * FROM ' +q.from + ' WHERE ' + where;
         query.setApiCall(queryText)
 
-        console.log(q);
+        //console.log(q);
 
         map.layer.setOptions({
             query: q

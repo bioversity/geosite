@@ -13,6 +13,21 @@ https://www.google.com/fusiontables/DataSource?docid=1e7Ndw0djwWaDYnqo7BMYWLw7zE
 https://www.google.com/fusiontables/DataSource?docid=1NRN1z_xmDdy5XRuCfhWehz01H4MUHf39KWIEhgM
 https://www.google.com/fusiontables/DataSource?docid=1r06Y-Z2pRSGM1tOPdz15TbD8bGnvvkiI0I07_qw
 */
+
+function showOpacity () {
+  $('body').css({
+      "opacity": "0.40",
+      "pointer-events": "none"
+    });
+}
+
+function hideOpacity () {
+  $('body').css({
+      "opacity": "",
+      "pointer-events": ""
+    });
+}
+
 var get = [];
 location.search.replace('?', '').split('&').forEach(function (val) {
     split = val.split("=", 2);
@@ -36,6 +51,8 @@ var query = {
             $(this).val('');
         });
         
+        query.fieldNames = biocache;
+
         // typeahaed
         $('.typeahead').each(function() {
             var $this = $(this)
@@ -149,14 +166,22 @@ var query = {
         if(tableId) {
             q.from = tableId
         }
-        var queryText = 'SELECT * FROM ' +q.from + ' WHERE ' + where;
+        var queryText = 'SELECT * FROM \'' +q.from + '\' WHERE ' + where;
         query.setApiCall(queryText)
 
         //console.log(q);
 
-        map.layer.setOptions({
-            query: q
-        })
+        // map.layer.setOptions({
+        //     query: q
+        // })
+        showOpacity();
+        $.getJSON('https://lsws.newtvision.com/getgeojsonp', {
+            t: 'mss',
+            sql: queryText
+        }, function(data) {
+           map.init();
+           mss_callback(data);
+        });
 
         // just run the the same COUNT(*) query to simply understand the amount
         /*
@@ -169,7 +194,7 @@ var query = {
         var encodedQuery = encodeURIComponent(queryText);
 
         // Construct the URL
-        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+        var url = ['https://lsws.newtvision.com/geosite'];
         url.push('?sql=' + encodedQuery);
         var apiUrl = url.join('')
 
@@ -195,7 +220,7 @@ var query = {
             var $btn = $(this);
             $btn.addClass('disabled').text('Downloading...');
 
-            url2.push('&callback=?');
+            //url2.push('&callback=?');
             $.getJSON(url2.join(''), function(data) {
                 
                 var rlength = data.rows ? data.rows.length : false;
@@ -207,7 +232,7 @@ var query = {
 
                     url.push('&alt=csv');
                     //$modal.find('.download-modal').prop('href', url.join(''));
-                    $modal.find('.download-modal').prop('href', 'https://www.google.com/fusiontables/exporttable?query=' + encodedQuery);
+                    $modal.find('.download-modal').prop('href', 'https://lsws.newtvision.com/geositecsv?sql=' + encodedQuery);
                     $modal.find('.close-modal').click(function(e) {
                         $modal.hide();
 
@@ -239,6 +264,11 @@ var query = {
             })
         } else { // contact the server
             // Retrieve the unique store names using GROUP BY workaround.
+            
+            var queryTextTest = "SELECT '"+fieldName+"' " +
+                "FROM '" + fusionTableId + "' GROUP BY '"+fieldName+"'"
+
+
             var queryText = "SELECT '"+fieldName+"', COUNT() " +
                 'FROM ' + fusionTableId + " GROUP BY '"+fieldName+"'"
 
@@ -259,9 +289,7 @@ var query = {
                         results.push(row[0]) 
                     }
                 }
-                //console.log(results)
                 query.fieldNames[fieldName + fusionTableId] = results
-
                 // Use the results to create the autocomplete options.
                 $elem.typeahead({
                     source: results
@@ -273,19 +301,27 @@ var query = {
         var encodedQuery = encodeURIComponent(queryText);
 
         // Construct the URL
-        var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+        //var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+        var url = ['https://lsws.newtvision.com/geosite'];
         url.push('?sql=' + encodedQuery);
         url.push('&key=' + map.key);
-        url.push('&callback=?')
-
+        //url.push('&callback=?')
         $.getJSON(url.join(''), function(data) {
             cb(data)
         });
     },
     getColumns: function(tableId, cb) {
-        $.getJSON('https://www.googleapis.com/fusiontables/v1/tables/' + tableId + '/columns?key='+map.key+'&callback=?', function(data) {
+
+        $.getJSON('https://lsws.newtvision.com/getcolumns', {
+            t: tableId
+        }, function(data) {
             cb(data)
         });
+
+
+        // $.getJSON('https://www.googleapis.com/fusiontables/v1/tables/' + tableId + '/columns?key='+map.key, function(data) {
+        //     cb(data)
+        // });//+'&callback=?'
     },
     getInstitutes: function(instcode, cb) {
         var instTable = '1g5rq1sLqXArypFIudfAXN1p5P0dMGfNmW7AwWD0'

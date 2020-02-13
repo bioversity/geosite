@@ -1,3 +1,23 @@
+var script = document.createElement('script');
+var queryInit = false;
+if (Boolean(get['ID_MISSION'])){
+    queryInit = "f=ID_MISSION&v="+get['ID_MISSION'];
+}
+if (Boolean(get['ID_SUB_MISSION'])){
+    queryInit = "f=ID_SUB_MISSION&v="+get['ID_SUB_MISSION'];
+}
+if (Boolean(get['NEW_ID_SAMPLE'])){
+    queryInit = "f=NEW_ID_SAMPLE&v="+get['NEW_ID_SAMPLE'];
+}
+
+if(!queryInit){
+    script.src = 'js/getgeojsonp.group.js';    
+}else{
+    script.src = 'https://lsws.newtvision.com/getgeojsonp?t=mss&'+queryInit;  
+}
+
+document.getElementsByTagName('head')[0].appendChild(script);
+
 var map = {
     mapObject: null,
     layer: null,
@@ -16,37 +36,37 @@ var map = {
         };
         map.mapObject = new google.maps.Map(document.getElementById("map_canvas"), myOptions)
         
-        var queryInit = "";
-        if (Boolean(get['ID_MISSION'])){
-            var queryInit = "'ID_MISSION'='"+get['ID_MISSION']+"'";
-        }
-        if (Boolean(get['ID_SUB_MISSION'])){
-            var queryInit = "'ID_SUB_MISSION'='"+get['ID_SUB_MISSION']+"'";
-        }
-        if (Boolean(get['NEW_ID_SAMPLE'])){
-            var queryInit = "'NEW_ID_SAMPLE'='"+get['NEW_ID_SAMPLE']+"'";
-        }
+        // var queryInit = "";
+        // if (Boolean(get['ID_MISSION'])){
+        //     var queryInit = "'ID_MISSION'='"+get['ID_MISSION']+"'";
+        // }
+        // if (Boolean(get['ID_SUB_MISSION'])){
+        //     var queryInit = "'ID_SUB_MISSION'='"+get['ID_SUB_MISSION']+"'";
+        // }
+        // if (Boolean(get['NEW_ID_SAMPLE'])){
+        //     var queryInit = "'NEW_ID_SAMPLE'='"+get['NEW_ID_SAMPLE']+"'";
+        // }
         
-        map.layer = new google.maps.FusionTablesLayer({
-            query: {
-                select: '',
-                from: map.fusionTableId,
-                where: queryInit
-            },
-            map: map.mapObject,
-            suppressInfoWindows: true,
-            options: {
-                styleId: 2,
-                templateId: 2
+        // map.layer = new google.maps.FusionTablesLayer({
+        //     query: {
+        //         select: '',
+        //         from: map.fusionTableId,
+        //         where: queryInit
+        //     },
+        //     map: map.mapObject,
+        //     suppressInfoWindows: true,
+        //     options: {
+        //         styleId: 2,
+        //         templateId: 2
 
-            }
+        //     }
             
-        })
-        var infoWindow = new google.maps.InfoWindow()
+        // })
+        // var infoWindow = new google.maps.InfoWindow()
 
         // this runs whenever we click on a red dot
-        google.maps.event.addListener(map.layer, 'click', function(e) {
-            infowindow.click(infoWindow, e)
+        //google.maps.event.addListener(map.layer, 'click', function(e) {
+            //infowindow.click(infoWindow, e)
             /*
             var row = e.row
             infoWindow.setOptions({
@@ -78,6 +98,23 @@ var map = {
                 })
             }
             */
-        })
+        //})
     }
+}
+var infoWindowCB = new google.maps.InfoWindow();
+
+function mss_callback(response) {
+  showOpacity ();
+
+  map.mapObject.data.addGeoJson(response);
+  map.mapObject.data.setStyle(function(feature) {
+    return  { 
+        icon: 'http://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle.png'
+      }
+  });
+  map.mapObject.data.addListener('click', function(event) {
+    infowindow.click(infoWindowCB, event);
+  });
+
+  hideOpacity ();
 }

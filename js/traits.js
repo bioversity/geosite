@@ -3,7 +3,7 @@ traits = {
         Musa: '1e7Ndw0djwWaDYnqo7BMYWLw7zElTKC9-Jc227yQ',
         Ipomoea: '1bnG9YSgZJBItygxK5XgPq9MJPw1bpooGHy2tmGg',
         Dioscorea: '1_5eJCH58ImSCuqddaNNnCfII4EOFoKxT6IUlGMY',
-        Manihot: '1wk_SgC5_qS8eZleVawsKWmfM_Wn2C4Gc1Nvhpgg',
+        //Manihot: '1wk_SgC5_qS8eZleVawsKWmfM_Wn2C4Gc1Nvhpgg',
         Pennisetum: '1NRN1z_xmDdy5XRuCfhWehz01H4MUHf39KWIEhgM',
         Sorghum: '1r06Y-Z2pRSGM1tOPdz15TbD8bGnvvkiI0I07_qw'
     },
@@ -41,7 +41,6 @@ traits = {
                 var lookup = $this.typeahead.bind($this, 'lookup');
                 lookup();
                 traits.getTraitValues(crop, $traitInput.val(), function(data) {
-                    //console.log(data)
                     autocomplete.data('typeahead').source = data
                     lookup()
                 })
@@ -68,7 +67,7 @@ traits = {
     getTraitValues: function(crop, trait, cb) {
         if(!trait) return;
         // XXX escape the trait variable
-        var q = 'SELECT \'' + trait + '\', COUNT() FROM ' + traits.tables[crop] + ' GROUP BY \'' + trait + "'";
+        var q = 'SELECT \'' + trait + '\' FROM \'' + traits.tables[crop] + '\'';
         query.runQuery(q, function(data) {
             var traitValues = []
             for(var i in data.rows) {
@@ -101,7 +100,7 @@ traits = {
         var key = $traitFilter.find('input[type=text]').eq(0).val()
         var value = $traitFilter.find('input[type=text]').eq(1).val()
 
-        var traitQuery = 'SELECT ID_SAMPLE FROM '+ currTableId + ' WHERE \''+key+'\' = \''+value+'\'';
+        var traitQuery = 'SELECT \'ID_SAMPLE\' FROM \''+ currTableId + '\' WHERE \''+key+'\' = \''+value+'\'';
 
         query.load(true)
         query.runQuery(traitQuery, function(data) {

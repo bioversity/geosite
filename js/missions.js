@@ -12,12 +12,13 @@ missions = {
             value = $this.val()
             operator = '=' // defaulting to = (not using < or >)
             if(value) {
-                instFilters.push("'" + key + "' " + operator + " '" + value + "'")
+                
+                instFilters.push("'" + key + "' " + operator + " '" + value.replace(/'/g, "~") + "'")
             }
             
         })
-        var instQuery = "SELECT INSTCODE " +
-                "FROM " + missions.instTable + " WHERE " + instFilters.join(' AND ');
+        var instQuery = "SELECT 'INSTCODE' " +
+                "FROM '" + missions.instTable + "' WHERE " + instFilters.join(' AND ');
 
         // cooperators
         var coopFilters = []
@@ -28,12 +29,13 @@ missions = {
             value = $this.val()
             operator = '=' // defaulting to = (not using < or >)
             if(value) {
-                coopFilters.push("'" + key + "' " + operator + " '" + value + "'")
+
+                coopFilters.push("'" + key + "' " + operator + " '" + value.replace(/'/g, "~") + "'")
             }
             
         })
-        var coopQuery = "SELECT ID_COOPERATOR " +
-                "FROM " + missions.coopTable + " WHERE " + coopFilters.join(' AND ');
+        var coopQuery = "SELECT 'ID_COOPERATOR' " +
+                "FROM '" + missions.coopTable + "' WHERE " + coopFilters.join(' AND ');
 
         query.load(true)
         if(instFilters.length && coopFilters.length) { // both institutes and cooperators filled
@@ -49,7 +51,6 @@ missions = {
                             where += ' AND ' + missionsWhere
                         }
                         if(where) {
-                            //console.log(where)
                             query.setWhere(where)
                         }
                         query.load(false)
@@ -64,7 +65,6 @@ missions = {
                     where += ' AND ' + missionsWhere
                 }
                 if(where) {
-                    //console.log(where)
                     query.setWhere(where)
                 }
                 query.load(false)
@@ -77,7 +77,6 @@ missions = {
                         where += ' AND ' + missionsWhere
                     }
                     if(where) {
-                        //console.log(where)
                         query.setWhere(where)
                     }
                     query.load(false)
@@ -86,7 +85,6 @@ missions = {
         } else {
             var where = missions.buildWhereSamples()
             if(where) {
-                //console.log(where)
                 query.setWhere(where)
             }
             query.load(false)
@@ -99,7 +97,7 @@ missions = {
             var id_cooperator = data.rows[i][0]
             coopIds.push("'" + id_cooperator + "'")
         }
-        var q = 'SELECT ID_SUB_MISSION FROM '+missions.collTable+' WHERE ID_COOPERATOR IN (' + coopIds.join(',') + ')';
+        var q = 'SELECT \'ID_SUB_MISSION\' FROM \''+missions.collTable+'\' WHERE ID_COOPERATOR IN (' + coopIds.join(',') + ')';
         query.runQuery(q, function(data) {
             var idSubMissions = []
             for(var i in data.rows) {
@@ -151,7 +149,8 @@ missions = {
             operator = '=' // defaulting to = (not using < or >)
         
             if(value) {
-                filters.push("'" + key + "' " + operator + " '" + value + "'")
+                
+                filters.push("'" + key + "' " + operator + " '" + value.replace(/'/g, "~") + "'")
             }
         })
 

@@ -1,6 +1,7 @@
 accessions = {
     accTable: '1T3qJ47z2Q1gFI8QRNXz5XDMfToySKEFkVcTrVlc',
-    mergeOfAccessionsAndMissionsSamples: '1QknvlptH6ens5-NZyzgSZc_5TlqaHpeT9ppXtEo',
+    //mergeOfAccessionsAndMissionsSamples: '1QknvlptH6ens5-NZyzgSZc_5TlqaHpeT9ppXtEo',
+    mergeOfAccessionsAndMissionsSamples: '1sfPdnErQ8ZubgZaHEa7FrYmsp63VELha6JERUj8',
     submit: function() {
         // do first the institutes
         var instFilters = []
@@ -16,8 +17,8 @@ accessions = {
             }
 
         })
-        var instQuery = "SELECT INSTCODE " +
-                "FROM " + missions.instTable + " WHERE " + instFilters.join(' AND ');
+        var instQuery = "SELECT 'INSTCODE' " +
+                "FROM '" + missions.instTable + "' WHERE " + instFilters.join(' AND ');
 
         if(instFilters.length) {
             query.load(true)
@@ -45,7 +46,7 @@ accessions = {
                 operator = '=' // defaulting to = (not using < or >)
             
                 if(value) {
-                    filters.push("'" + key + "' " + operator + " '" + value + "'")
+                    filters.push("'" + key + "' " + operator + " '" + value.replace(/'/g, "~") + "'")
                 }
             })
 

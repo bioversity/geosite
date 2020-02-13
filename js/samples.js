@@ -10,12 +10,11 @@ samples = {
             operator = '=' // defaulting to = (not using < or >)
         
             if(value) {
-                filters.push("'" + key + "' " + operator + " '" + value + "'")
+                filters.push("'" + key + "' " + operator + " '" + value.replace(/'/g, "~") + "'")
             }
         })
         var where = filters.join(' AND ')
         if(where) {
-            //console.log(where)
             query.setWhere(where)
         }
     }

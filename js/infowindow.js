@@ -53,13 +53,20 @@ infowindow = {
         return html
     },
     click: function(iw, e) {
-        var row = e.row
-        var html = infowindow.pdfLink(row.ID_MISSION.value)
-        html += e.infoWindowHtml
+        //var row = e.row
+        var row = e.feature.i
+        //console.log(row.ID_MISSION);
+        var html = infowindow.pdfLink(row.ID_MISSION)
+
+        for (var key in row){
+            html += "<b>"+key+":<\/b> "+row[key]+"<br>"
+        }
+
+        //html += e.infoWindowHtml
         html = infowindow.makePILinks(html)
-        html = infowindow.makeID_MISSIONLinks(html, row.ID_MISSION.value)
-        html = infowindow.makeID_SUB_MISSIONLinks(html, row.ID_SUB_MISSION.value)
-        html = infowindow.makeNEW_ID_SAMPLELinks(html, row.NEW_ID_SAMPLE.value)
+        html = infowindow.makeID_MISSIONLinks(html, row.ID_MISSION)
+        html = infowindow.makeID_SUB_MISSIONLinks(html, row.ID_SUB_MISSION)
+        html = infowindow.makeNEW_ID_SAMPLELinks(html, row.NEW_ID_SAMPLE)
         iw.setOptions({
             content: html,
             position: e.latLng,
@@ -68,7 +75,7 @@ infowindow = {
         iw.open(map.mapObject)
         //console.log(row)
         /*
-        var instcode = row.INSTCODE.value.split(';')
+        var instcode = row.INSTCODE.split(';')
 
         for(var i in instcode) {
             query.getInstitutes(instcode, function(data) {

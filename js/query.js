@@ -168,7 +168,7 @@ var query = {
         }
         var queryText = 'SELECT * FROM \'' +q.from + '\' WHERE ' + where;
         query.setApiCall(queryText)
-
+        //console.log(queryText);
         //console.log(q);
 
         // map.layer.setOptions({
@@ -203,12 +203,13 @@ var query = {
 
     },
     createDownloadCsv: function(url, encodedQuery) {
-        url.push('&key=' + map.key);
+        //url.push('&key=' + map.key);
         var url2 = url.slice(0);
         // this is for JSON
         /*
         */
-
+        //console.log(url2);
+        //console.log(url);
         // this is for CSV
         
         var text = 'Download CSV';
@@ -217,6 +218,7 @@ var query = {
         $('.downlaod-csv').html($a);
 
         $a.click(function(e) {
+            showOpacity ();
             var $btn = $(this);
             $btn.addClass('disabled').text('Downloading...');
 
@@ -240,9 +242,11 @@ var query = {
                         e.stopPropagation();
                     });
                     $btn.removeClass('disabled').text(text);
+                    hideOpacity ();
                 } else {
                     alert('No data to download!');
                     $btn.removeClass('disabled').text(text);
+                    hideOpacity ();
                 }
             })
 
@@ -275,9 +279,9 @@ var query = {
             var encodedQuery = encodeURIComponent(queryText);
 
             // Construct the URL
-            var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+            var url = ['https://lsws.newtvision.com/geosite'];
             url.push('?sql=' + encodedQuery);
-            url.push('&key=' + map.key);
+            //url.push('&key=' + map.key);
 
             $.getJSON('http://bioversity-cache.appspot.com/cache-url?callback=?', {
                 url: url.join('') 
@@ -298,23 +302,26 @@ var query = {
         }
     },
     runQuery: function(queryText, cb) {
+        showOpacity();
         var encodedQuery = encodeURIComponent(queryText);
-
+        //console.log(encodedQuery);
         // Construct the URL
         //var url = ['https://www.googleapis.com/fusiontables/v1/query'];
         var url = ['https://lsws.newtvision.com/geosite'];
         url.push('?sql=' + encodedQuery);
-        url.push('&key=' + map.key);
+        //url.push('&key=' + map.key);
         //url.push('&callback=?')
         $.getJSON(url.join(''), function(data) {
+            hideOpacity();
             cb(data)
         });
     },
     getColumns: function(tableId, cb) {
-
+        showOpacity();
         $.getJSON('https://lsws.newtvision.com/getcolumns', {
             t: tableId
         }, function(data) {
+            hideOpacity();
             cb(data)
         });
 
@@ -327,8 +334,9 @@ var query = {
         var instTable = '1g5rq1sLqXArypFIudfAXN1p5P0dMGfNmW7AwWD0'
         var queryText = "SELECT 'ACRONYM', 'NAME_NAT' " +
                 "FROM " + instTable + " WHERE INSTCODE = '"+instcode+"'";
-
+        showOpacity();
         query.runQuery(queryText, function(data) {
+            hideOpacity();
             cb(data)
         })
 

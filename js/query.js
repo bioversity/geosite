@@ -27,7 +27,7 @@ function hideOpacity () {
       "pointer-events": ""
     });
 }
-
+var lastRLength = 0;
 var get = [];
 location.search.replace('?', '').split('&').forEach(function (val) {
     split = val.split("=", 2);
@@ -169,8 +169,6 @@ var query = {
         var queryText = 'SELECT * FROM \'' +q.from + '\' WHERE ' + where;
         query.setApiCall(queryText)
         //console.log(queryText);
-        //console.log(q);
-
         // map.layer.setOptions({
         //     query: q
         // })
@@ -223,14 +221,14 @@ var query = {
             $btn.addClass('disabled').text('Downloading...');
 
             //url2.push('&callback=?');
-            $.getJSON(url2.join(''), function(data) {
+            //$.getJSON(url2.join(''), function(data) {
                 
-                var rlength = data.rows ? data.rows.length : false;
+                //var rlength = data.rows ? data.rows.length : false;
 
-                if(rlength) {
+                if(lastRLength) {
                     var $modal = $('.modal');
                     $modal.show();
-                    $modal.find('.content').html('You\'re about to download <b>'+ rlength+'</b> rows of data. Click Download to get this data.');
+                    $modal.find('.content').html('You\'re about to download <b>'+ lastRLength+'</b> rows of data. Click Download to get this data.');
 
                     url.push('&alt=csv');
                     //$modal.find('.download-modal').prop('href', url.join(''));
@@ -248,7 +246,7 @@ var query = {
                     $btn.removeClass('disabled').text(text);
                     hideOpacity ();
                 }
-            })
+            //})
 
             e.stopPropagation();
             e.preventDefault();
@@ -268,7 +266,7 @@ var query = {
             })
         } else { // contact the server
             // Retrieve the unique store names using GROUP BY workaround.
-            
+            return;
             var queryTextTest = "SELECT '"+fieldName+"' " +
                 "FROM '" + fusionTableId + "' GROUP BY '"+fieldName+"'"
 
@@ -283,8 +281,9 @@ var query = {
             url.push('?sql=' + encodedQuery);
             //url.push('&key=' + map.key);
 
-            $.getJSON('http://bioversity-cache.appspot.com/cache-url?callback=?', {
-                url: url.join('') 
+            // $.getJSON('http://bioversity-cache.appspot.com/cache-url?callback=?', {
+            //     url: url.join('') 
+            $.getJSON(url.join(''), {
             }, function(data) {
                 var results = []
                 for(var i in data.rows) {

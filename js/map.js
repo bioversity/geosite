@@ -105,7 +105,7 @@ var infoWindowCB = new google.maps.InfoWindow();
 
 function mss_callback(response) {
   showOpacity ();
-
+  lastRLength = response.features.length;
   map.mapObject.data.addGeoJson(response);
   map.mapObject.data.setStyle(function(feature) {
     return  { 

@@ -53,7 +53,8 @@ infowindow = {
         return html
     },
     click: function(iw, e) {
-        var row = e.feature.h == undefined ? e.feature.i : e.feature.h;
+        // var row = e.feature.h == undefined ? e.feature.i : e.feature.h;
+        var row = e.feature.j;
         var html = infowindow.pdfLink(row.ID_MISSION)
 
         for (var key in row){

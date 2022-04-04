@@ -1,6 +1,6 @@
 infowindow = {
     pdfLink: function(missionId) {
-        var form = '<div style="margin-top: 20px;"><form method="post" action="http://www.central-repository.cgiar.org/index.php?id=2391" target="_blank">\
+        var form = '<div style="margin-top: 20px;"><form method="post" action="https://www.central-repository.cgiar.org/index.php?id=2391" target="_blank">\
               <input type="hidden" size="45" value="'+missionId+'" name="user_alfsearch_pi1[search1][missionID]">\
               <input type="hidden" value="Search" name="user_alfsearch_pi1[search1][submit]">\
               <div style="margin:auto; text-align: center;margin-top:-18px;">\
@@ -9,7 +9,7 @@ infowindow = {
                    color: #ff3333; \
                 }\
               </style>\
-                  <img src="http://www.central-repository.cgiar.org/alfresco/images/filetypes/pdf.gif" style="vertical-align:middle;"/><input class="pdf-link" type="submit" value="View pdf files for this mission" style="background: none repeat scroll 0% 0% transparent; border: 0pt none; cursor: pointer; color: #336699;"/>\
+                  <img src="https://www.central-repository.cgiar.org/alfresco/images/filetypes/pdf.gif" style="vertical-align:middle;"/><input class="pdf-link" type="submit" value="View pdf files for this mission" style="background: none repeat scroll 0% 0% transparent; border: 0pt none; cursor: pointer; color: #336699;"/>\
               </div>\
           </form></div>';
 
@@ -20,12 +20,12 @@ infowindow = {
         var reg = /PI [\d]+/g
         if(html.match(reg)) {
             html = html.replace(reg, function(PI) {
-                return '<a href="http://www.ars-grin.gov/cgi-bin/npgs/acc/search.pl?accid='+PI+'">'+PI+'</a>'
+                return '<a href="https://www.ars-grin.gov/cgi-bin/npgs/acc/search.pl?accid='+PI+'">'+PI+'</a>'
             })
         }
         if(html.match(/CN [\d]+/g)) {
             html = html.replace(reg, function(CN) {
-                return '<a href="http://pgrc3.agr.gc.ca/cgi-bin/npgs/html/acc_search.pl?accid='+CN+'">'+CN+'</a>'
+                return '<a href="https://pgrc3.agr.gc.ca/cgi-bin/npgs/html/acc_search.pl?accid='+CN+'">'+CN+'</a>'
             }) 
             
         }
